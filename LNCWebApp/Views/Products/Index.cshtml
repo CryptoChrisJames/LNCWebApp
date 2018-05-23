@@ -10,11 +10,18 @@
 
 <div class="row">
     <div class="container">
-        <a asp-controller="Products" asp-action="Create">
-        </a>
+        <form align="center" method="get" asp-controller="Products" asp-action="Create">
+            <button  type="submit">
+                Add a Product
+            </button>
+        </form>
+        @*<a align="center" asp-controller="Products" asp-action="Create" class="btn">Add New Product</a>*@
         <table class="table">
             <thead>
                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProfilePicture)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ProductName)
                     </th>
@@ -36,46 +43,43 @@
                     <th>
                         @Html.DisplayNameFor(model => model.ProductDescription)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProfilePicture)
-                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GenderOption)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateCreated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductDescription)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProfilePicture)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <img style="width:30%; height:auto;" src="~/ProductPictures/@item.ProfilePicture" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GenderOption)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

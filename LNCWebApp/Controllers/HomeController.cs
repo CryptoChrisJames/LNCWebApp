@@ -3,13 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using LNCWebApp.Data;
+using LNCWebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LNCWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            HomeViewModel HVM = new HomeViewModel();
+            await _context.Products.ToListAsync();
             return View();
         }
 

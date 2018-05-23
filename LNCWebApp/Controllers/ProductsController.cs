@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LNCLibrary.Models;
 using LNCWebApp.Data;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace LNCWebApp.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public ProductsController(ApplicationDbContext context)
+        private IHostingEnvironment _environment;
+        
+        public ProductsController(ApplicationDbContext context, IHostingEnvironment environment)
         {
-            _context = context;    
+            _context = context;
+            _environment = environment;
         }
 
         // GET: Products
@@ -54,10 +59,23 @@ namespace LNCWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ProductName,Price,GenderOption,Quantity,Category,DateCreated,ProductDescription,ProfilePicture")] Product product)
+        public async Task<IActionResult> Create([Bind("ID,ProductName,Price,GenderOption," +
+            "Quantity,Category,DateCreated,ProductDescription," +
+            "ProfilePicture")] Product product, IFormFile ProfilePicture)
         {
             if (ModelState.IsValid)
             {
+                if(ProfilePicture != null)
+                {
+                    string uploadpath = Path.Combine(_environment.WebRootPath, "ProductPictures");
+                    string filename = Path.GetFileName(ProfilePicture.FileName);
+                    using (FileStream fs = new FileStream(Path.Combine(uploadpath, filename), FileMode.Create))
+                    {
+                        await ProfilePicture.CopyToAsync(fs);
+                    }
+                    product.ProfilePicture = filename;
+                    product.DateCreated = DateTime.Now; 
+                }
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
