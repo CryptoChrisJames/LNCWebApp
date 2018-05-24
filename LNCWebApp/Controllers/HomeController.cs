@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using LNCWebApp.Data;
 using LNCWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using LNCLibrary.Models.HomeViewModel;
 
 namespace LNCWebApp.Controllers
 {
@@ -20,8 +21,8 @@ namespace LNCWebApp.Controllers
         public async Task<IActionResult> Index()
         {
             HomeViewModel HVM = new HomeViewModel();
-            await _context.Products.ToListAsync();
-            return View();
+            HVM.ShopProducts = await _context.Products.ToListAsync();
+            return View(HVM);
         }
 
         public IActionResult About()

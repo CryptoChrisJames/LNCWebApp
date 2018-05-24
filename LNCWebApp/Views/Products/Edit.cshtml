@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-<form asp-action="Edit">
+<form enctype="multipart/form-data" asp-action="Edit">
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -29,7 +29,8 @@
         <div class="form-group">
             <label asp-for="GenderOption" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="GenderOption" class="form-control"></select>
+                <select asp-for="GenderOption" asp-items="@Html.GetEnumSelectList<LNCLibrary.Models.Gender>()" 
+                        class="form-control"></select>
                 <span asp-validation-for="GenderOption" class="text-danger"></span>
             </div>
         </div>
@@ -43,7 +44,8 @@
         <div class="form-group">
             <label asp-for="Category" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="Category" class="form-control"></select>
+                <select asp-for="Category" asp-items="@Html.GetEnumSelectList<LNCLibrary.Models.Category>()"
+                        class="form-control"></select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
         </div>
@@ -64,7 +66,7 @@
         <div class="form-group">
             <label asp-for="ProfilePicture" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ProfilePicture" class="form-control" />
+                <input type="file" asp-for="ProfilePicture" class="form-control" />
                 <span asp-validation-for="ProfilePicture" class="text-danger"></span>
             </div>
         </div>

@@ -104,7 +104,9 @@ namespace LNCWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ProductName,Price,GenderOption,Quantity,Category,DateCreated,ProductDescription,ProfilePicture")] Product product)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("ID,ProductName,Price,GenderOption,Quantity,Category," +
+            "DateCreated,ProductDescription,ProfilePicture")] Product product, IFormFile ProfilePicture)
         {
             if (id != product.ID)
             {
@@ -113,6 +115,16 @@ namespace LNCWebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (ProfilePicture != null)
+                {
+                    string uploadpath = Path.Combine(_environment.WebRootPath, "ProductPictures");
+                    string filename = Path.GetFileName(ProfilePicture.FileName);
+                    using (FileStream fs = new FileStream(Path.Combine(uploadpath, filename), FileMode.Create))
+                    {
+                        await ProfilePicture.CopyToAsync(fs);
+                    }
+                    product.ProfilePicture = filename;
+                }
                 try
                 {
                     _context.Update(product);

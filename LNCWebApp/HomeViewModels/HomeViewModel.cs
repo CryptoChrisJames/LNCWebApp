@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LNCLibrary.Models.HomeViewModel
 {
-    class HomeViewModel
+    public class HomeViewModel
     {
         public ICollection<Product> ShopProducts { get; set; }
     }

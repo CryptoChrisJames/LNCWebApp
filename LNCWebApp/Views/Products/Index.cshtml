@@ -49,9 +49,9 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
+                <tr >
                     <td>
-                        <img style="width:30%; height:auto;" src="~/ProductPictures/@item.ProfilePicture" />
+                        <img style="width:auto; height:30%;" src="~/ProductPictures/@item.ProfilePicture" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductName)
