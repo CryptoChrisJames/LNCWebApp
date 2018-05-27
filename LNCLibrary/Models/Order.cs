@@ -18,5 +18,6 @@ namespace LNCLibrary.Models
         public int ConfirmationNumber { get; set; }
         public Status Status { get; set; }
         public Cart Cart { get; set; }
+        public int UserID { get; set; }
     }
 }
