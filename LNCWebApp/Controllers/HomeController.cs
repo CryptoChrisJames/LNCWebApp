@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using LNCLibrary.Models.HomeViewModel;
 using Microsoft.AspNetCore.Identity;
 using LNCLibrary.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LNCWebApp.Controllers
 {
@@ -22,20 +23,25 @@ namespace LNCWebApp.Controllers
             _context = context;
             _currentUser = currentUser;
         }
+
         public async Task<IActionResult> Index()
         {
-            
             HomeViewModel HVM = new HomeViewModel();
-            HVM.CurrentCart = new LNCLibrary.Models.Cart();
+            HVM.SessionID = HttpContext.Session.Id;
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
             HVM.ShopProducts = await _context.Products.ToListAsync();
-            return View(HVM);
-        }
-
-        [HttpPost]
-        public JsonResult AddToCart(CartItems item)
-        {
-            
-            return Json("");
+            if (User.Identity.IsAuthenticated == true)
+            {
+                HVM.CurrentUser = await _currentUser.GetUserAsync(User);
+                HVM.currentCart = _shoppingCart.GetCart(HVM.CurrentUser.UserName);
+                return View(HVM);
+            }
+            else
+            {
+                 
+                HVM.currentCart = _shoppingCart.GetCart(HVM.SessionID);
+                return View(HVM);
+            }
         }
 
         public IActionResult About()

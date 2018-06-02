@@ -4,18 +4,113 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using LNCWebApp.Data;
+using LNCLibrary.Models;
 
 namespace LNCLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180517002010_InitializeDB")]
-    partial class InitializeDB
+    [Migration("20180601121838_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LNCLibrary.Models.Cart", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("cartID");
+
+                    b.Property<string>("itempicture");
+
+                    b.Property<string>("name");
+
+                    b.Property<int>("price");
+
+                    b.Property<int>("productID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("cartID");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CartID");
+
+                    b.Property<int>("ConfirmationNumber");
+
+                    b.Property<float>("FinalPrice");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Product", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Category");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<int>("GenderOption");
+
+                    b.Property<int>("Price");
+
+                    b.Property<string>("ProductDescription");
+
+                    b.Property<string>("ProductName");
+
+                    b.Property<string>("ProfilePicture");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Size", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ProductID");
+
+                    b.Property<int>("ThisSize");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("Size");
+                });
 
             modelBuilder.Entity("LNCWebApp.Models.ApplicationUser", b =>
                 {
@@ -172,6 +267,27 @@ namespace LNCLibrary.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("cartID");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartID");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Size", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Product")
+                        .WithMany("AvailableSizes")
+                        .HasForeignKey("ProductID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

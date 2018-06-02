@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 using LNCWebApp.Data;
 using LNCWebApp.Models;
 using LNCWebApp.Services;
+using Microsoft.Extensions.Caching;
+using LNCLibrary.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LNCWebApp
 {
@@ -48,7 +51,11 @@ namespace LNCWebApp
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
+            services.AddMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.CookieName = ".LNCWebApp";
+            });
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -57,6 +64,7 @@ namespace LNCWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSession();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -76,7 +84,7 @@ namespace LNCWebApp
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

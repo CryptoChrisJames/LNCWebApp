@@ -19,7 +19,7 @@ namespace LNCLibrary.Migrations
 
             modelBuilder.Entity("LNCLibrary.Models.Cart", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.HasKey("ID");
@@ -32,7 +32,7 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CartID");
+                    b.Property<string>("cartID");
 
                     b.Property<string>("itempicture");
 
@@ -44,7 +44,7 @@ namespace LNCLibrary.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CartID");
+                    b.HasIndex("cartID");
 
                     b.ToTable("CartItems");
                 });
@@ -54,7 +54,7 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CartID");
+                    b.Property<string>("CartID");
 
                     b.Property<int>("ConfirmationNumber");
 
@@ -271,8 +271,8 @@ namespace LNCLibrary.Migrations
             modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
                 {
                     b.HasOne("LNCLibrary.Models.Cart")
-                        .WithMany("Itinerary")
-                        .HasForeignKey("CartID");
+                        .WithMany("CartItems")
+                        .HasForeignKey("cartID");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Order", b =>

@@ -342,11 +342,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </figure>
                                 </div>
                                 @*<div class="ribben">
-                        <p>NEW</p>
-                    </div>
-                    <div class="ribben1">
-                        <p>SALE</p>
-                    </div>*@
+                                    <p>NEW</p>
+                                </div>
+                                <div class="ribben1">
+                                    <p>SALE</p>
+                                </div>*@
                                 <div class="block">
                                     <div class="starbox small ghosting"> </div>
                                 </div>
@@ -354,7 +354,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <h6><a href="single.html">@item.ProductName</a></h6>
                                     <span class="size">XL / XXL / S </span>
                                     <p>@*<del>$100.00</del>*@<em class="item_price">$@item.Price</em></p>
-                                    <input id="addToCart" type="button" style="padding-bottom:1em;" price="@item.Price" productid="@item.ID" productname="@item.ProductName" profilepicture="@item.ProfilePicture"/>
+                                    <input id="addToCart" type="button" style="padding-bottom:1em;" 
+                                           cartid="@Model.SessionID" price="@item.Price" 
+                                           productid="@item.ID" productname="@item.ProductName" 
+                                           profilepicture="@item.ProfilePicture"/>
                                 </div>
                             </div>
                         </div>
