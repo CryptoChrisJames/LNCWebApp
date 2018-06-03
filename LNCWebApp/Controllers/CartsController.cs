@@ -23,24 +23,11 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("AddToCart")]
-        public async Task<List<CartItems>> AddToCart(CartItems CartItem)
+        public Task<List<CartItems>> AddToCart(CartItems CartItem)
         {
-            _context.Add(CartItem);
-            await _context.SaveChangesAsync();
-            List<CartItems> currentCart = new List<CartItems>();
-            //currentCart = (from c in _context.CartItems
-            //               where c.cartID == CartItem.cartID
-            //               select new CartItems
-            //               {
-            //                   ID = c.ID,
-            //                   cartID = c.cartID,
-            //                   name = c.name,
-            //                   price = c.price,
-            //                   itempicture = c.itempicture,
-            //                   productID = c.productID,
-            //               }
-            //               ).ToList();
-            return (currentCart);
+
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+            return _shoppingCart.AddToCart(CartItem);
         }
 
         //        // GET: api/Carts/5

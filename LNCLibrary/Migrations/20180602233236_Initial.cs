@@ -10,14 +10,18 @@ namespace LNCLibrary.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Carts",
+                name: "Orders",
                 columns: table => new
                 {
-                    ID = table.Column<string>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ConfirmationNumber = table.Column<int>(nullable: false),
+                    FinalPrice = table.Column<float>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carts", x => x.ID);
+                    table.PrimaryKey("PK_Orders", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +103,7 @@ namespace LNCLibrary.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OrderID = table.Column<int>(nullable: true),
                     cartID = table.Column<string>(nullable: true),
                     itempicture = table.Column<string>(nullable: true),
                     name = table.Column<string>(nullable: true),
@@ -109,31 +114,9 @@ namespace LNCLibrary.Migrations
                 {
                     table.PrimaryKey("PK_CartItems", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_CartItems_Carts_cartID",
-                        column: x => x.cartID,
-                        principalTable: "Carts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CartID = table.Column<string>(nullable: true),
-                    ConfirmationNumber = table.Column<int>(nullable: false),
-                    FinalPrice = table.Column<float>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Orders_Carts_CartID",
-                        column: x => x.CartID,
-                        principalTable: "Carts",
+                        name: "FK_CartItems_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -245,14 +228,9 @@ namespace LNCLibrary.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_cartID",
+                name: "IX_CartItems_OrderID",
                 table: "CartItems",
-                column: "cartID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_CartID",
-                table: "Orders",
-                column: "CartID");
+                column: "OrderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Size_ProductID",
@@ -303,9 +281,6 @@ namespace LNCLibrary.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Size");
 
             migrationBuilder.DropTable(
@@ -324,7 +299,7 @@ namespace LNCLibrary.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");

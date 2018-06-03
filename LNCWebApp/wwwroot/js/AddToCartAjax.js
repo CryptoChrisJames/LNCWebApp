@@ -12,7 +12,6 @@
         dataType: 'json',
         data: CartData,
         success: function (data) {
-            debugger;
             alert(data);
         }
     });

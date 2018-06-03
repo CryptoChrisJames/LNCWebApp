@@ -17,20 +17,12 @@ namespace LNCLibrary.Migrations
                 .HasAnnotation("ProductVersion", "1.1.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("LNCLibrary.Models.Cart", b =>
-                {
-                    b.Property<string>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("OrderID");
 
                     b.Property<string>("cartID");
 
@@ -44,7 +36,7 @@ namespace LNCLibrary.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("cartID");
+                    b.HasIndex("OrderID");
 
                     b.ToTable("CartItems");
                 });
@@ -54,8 +46,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CartID");
-
                     b.Property<int>("ConfirmationNumber");
 
                     b.Property<float>("FinalPrice");
@@ -63,8 +53,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CartID");
 
                     b.ToTable("Orders");
                 });
@@ -270,16 +258,9 @@ namespace LNCLibrary.Migrations
 
             modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
                 {
-                    b.HasOne("LNCLibrary.Models.Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("cartID");
-                });
-
-            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
-                {
-                    b.HasOne("LNCLibrary.Models.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartID");
+                    b.HasOne("LNCLibrary.Models.Order")
+                        .WithMany("Cart")
+                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Size", b =>
