@@ -11,6 +11,7 @@ namespace LNCLibrary.Models
 {
     public partial class ShoppingCart
     {
+        //Class properties-->
         private readonly ApplicationDbContext _context;
 
         public ShoppingCart(ApplicationDbContext context)
@@ -21,7 +22,9 @@ namespace LNCLibrary.Models
         public string ShoppingCartID { get; set; }
 
         List<CartItems> ShoppingCartItems { get; set; }
+        //<-- end Class properties
 
+        //Getting the cart 
         public List<CartItems> GetCart(string CartID)
         {
             ShoppingCartID = CartID;
@@ -45,31 +48,15 @@ namespace LNCLibrary.Models
                 return ShoppingCartItems;
         }
 
-
-
-        ////// Helper method to simplify shopping cart calls
-        ////public static ShoppingCart GetCart(Controller controller)
-        ////{
-        ////    return GetCart(controller.HttpContext);
-        ////}
-
+        /// <summary>
+        /// Adding items to cart
+        /// </summary>
+        /// <param name="CartItem"></param>
+        /// <returns></returns>
         public async Task<List<CartItems>> AddToCart(CartItems CartItem)
         {
             _context.CartItems.Add(CartItem);
             await _context.SaveChangesAsync();
-            //List<CartItems> currentCart = new List<CartItems>();
-            //currentCart = (from c in _context.CartItems
-            //               where c.cartID == CartItem.cartID
-            //               select new CartItems
-            //               {
-            //                   ID = c.ID,
-            //                   cartID = c.cartID,
-            //                   name = c.name,
-            //                   price = c.price,
-            //                   itempicture = c.itempicture,
-            //                   productID = c.productID,
-            //               }
-            //               ).ToList();
             ShoppingCartItems = GetCart(CartItem.cartID);
             return ShoppingCartItems;
         }

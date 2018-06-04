@@ -1,1 +1,51 @@
-﻿
+﻿.LVNColorCart {
+    background: #1565C0;
+    position: fixed;
+    width: 35%;
+    height:10%;
+    left: 50%;
+    bottom: 0%;
+    transform: translateX(-50%);
+}
+
+.LVNColorCart:after {
+    content: '';
+    display: block;
+    padding-bottom:100%;
+}
+
+.cartTopLevelLayout {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin:0 auto;
+    display: inline-block;
+    z-index: 1;
+}
+.PriceLocation {
+    float: left;
+    width: 50%;
+}
+
+.LocationOfBottomButton{
+    float:right;
+    width: 50%;
+}
+
+#Price {
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Cagliostro;
+    color:#ffffff;
+    position:center;
+    width: 30%;
+}
+
+.DetailsButton{
+    border:none;
+    background-color:yellow;
+    font-weight:bold;
+    margin:1em;
+    padding: 11px;
+    border-radius:100%;
+}

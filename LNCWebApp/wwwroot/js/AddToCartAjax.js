@@ -1,4 +1,6 @@
-﻿$(document).on('click', '#addToCart', function () {
+﻿var cart; 
+
+$(document).on('click', '#addToCart', function () {
     var CartData = {
         productID: $(this).attr('productid'),
         itempicture: $(this).attr('profilepicture'),
@@ -9,10 +11,13 @@
     $.ajax({
         url: '/api/Carts/AddToCart',
         type: 'POST',
-        dataType: 'json',
+        datatype: 'json',
         data: CartData,
-        success: function (data) {
-            alert(data);
+        complete: function (data) {
+            console.log(data.data.cartid)
+        }, //Calling view-cart-update function
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error: ' + textStatus + ' ' + errorThrown);
         }
     });
 });

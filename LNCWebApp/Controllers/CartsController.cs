@@ -23,31 +23,12 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("AddToCart")]
-        public Task<List<CartItems>> AddToCart(CartItems CartItem)
+        public JsonResult AddToCart(CartItems CartItem)
         {
 
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
-            return _shoppingCart.AddToCart(CartItem);
+            return Json(_shoppingCart.AddToCart(CartItem));
         }
-
-        //        // GET: api/Carts/5
-        //        [HttpGet("{id}")]
-        //        public async Task<IActionResult> GetCart([FromRoute] string id)
-        //        {
-        //            if (!ModelState.IsValid)
-        //            {
-        //                return BadRequest(ModelState);
-        //            }
-
-        //            var cart = await _context.Carts.SingleOrDefaultAsync(m => m.ID == id);
-
-        //            if (cart == null)
-        //            {
-        //                return NotFound();
-        //            }
-
-        //            return Ok(cart);
-        //        }
 
         //        // PUT: api/Carts/5
         //        [HttpPut("{id}")]
