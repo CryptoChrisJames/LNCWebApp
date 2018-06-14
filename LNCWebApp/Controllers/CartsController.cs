@@ -21,10 +21,10 @@ namespace LNCWebApp.Controllers
             _context = context;
         }
 
-        public async Task<List<CartItems>> GetCart(string CartID)
-        {
+        //public async Task<List<CartItems>> GetCart(string CartID)
+        //{
             
-        }
+        //}
 
         [HttpPost]
         [Route("AddToCart")]

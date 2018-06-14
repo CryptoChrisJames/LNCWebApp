@@ -83,6 +83,27 @@ body{
 .logo-nav-left{
 	float:left;
 }
+
+.flatbutton {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	background: #eb6e00;
+	text-decoration: none;
+	position: relative;
+	border: 0;
+	box-shadow: none;
+	border-radius: 0px;
+	-webkit-border-radius: 11px;
+	-moz-border-radius: 11px;
+	border-radius: 11px;
+}
+
+	.flatbutton:hover {
+		background: #eb9d00;
+		text-decoration: none;
+	}
+
 .logo-nav-left h1 a{
 	font-size:1.5em;
 	color:#fff;

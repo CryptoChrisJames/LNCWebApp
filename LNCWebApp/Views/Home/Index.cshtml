@@ -20,10 +20,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 <head>
     <title>New Shop a E-Commerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="~/js/anime-master/anime.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript"> var GetCartbyID = "@Model.SessionID"</script>
     <!--Ajax MVC Jquery Cart-->
 
     <script type="text/javascript" src="~/js/CartFunctions.js"></script>
@@ -42,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>
     <!--search jQuery-->
-    <script src="js/main.js"></script>
+    @*<script src="js/main.js"></script>*@
     <!--search jQuery-->
     <script src="js/responsiveslides.min.js"></script>
     <script>
@@ -56,7 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
         });
     </script>
-    
+
     <!--start-rate-->
     <script src="js/jstarbox.js"></script>
     <link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
@@ -196,6 +202,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <li><a href="codes.html">Short Codes</a></li>
                                     <li><a href="mail.html">Mail Us</a></li>
                                 </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="logo-nav-left1">
+                        <nav class="navbar navbar-default">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                <button id="CartButton" class="flatbutton">View Cart<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                <div id="viewCart"></div>
                             </div>
                         </nav>
                     </div>
@@ -366,24 +389,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
     <!--new-arrivals-->
-    
     @*</div>*@
     <!--content-->
     <!-- cart -->
     @*<div id="cart" class="LVNColorCart">
-        <div class="container">
-            <div class="cartTopLevelLayout">
-                <div align="center" class="PriceLocation">
-                    <p align="center" id="Price"></p>
-                </div>
-                <div class="LocationOfBottomButton">
-                    <button class="DetailsButton">See Details</button>
+            <div class="container">
+                <div class="cartTopLevelLayout">
+                    <div align="center" class="PriceLocation">
+                        <p align="center" id="Price"></p>
+                    </div>
+                    <div class="LocationOfBottomButton">
+                        <button class="DetailsButton">See Details</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div></div>*@
-    <!-- cart -->
+        <div></div>*@
     <!---footer--->
     <div class="footer-w3l">
         <div class="container">
@@ -700,6 +721,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
+
+
+    
 
 </body>
 </html>
