@@ -6,6 +6,7 @@
     left: 50%;
     bottom: 0%;
     transform: translateX(-50%);
+    border: 2px outset black;
 }
 
 .LVNColorCart:after {

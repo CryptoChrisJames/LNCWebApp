@@ -5,10 +5,27 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LNCLibrary.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initialv1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    cartID = table.Column<string>(nullable: true),
+                    itempicture = table.Column<string>(nullable: true),
+                    name = table.Column<string>(nullable: true),
+                    price = table.Column<int>(nullable: false),
+                    productID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
@@ -95,30 +112,6 @@ namespace LNCLibrary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CartItems",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderID = table.Column<int>(nullable: true),
-                    cartID = table.Column<string>(nullable: true),
-                    itempicture = table.Column<string>(nullable: true),
-                    name = table.Column<string>(nullable: true),
-                    price = table.Column<int>(nullable: false),
-                    productID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartItems", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_CartItems_Orders_OrderID",
-                        column: x => x.OrderID,
-                        principalTable: "Orders",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,11 +221,6 @@ namespace LNCLibrary.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_OrderID",
-                table: "CartItems",
-                column: "OrderID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Size_ProductID",
                 table: "Size",
                 column: "ProductID");
@@ -281,6 +269,9 @@ namespace LNCLibrary.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Size");
 
             migrationBuilder.DropTable(
@@ -297,9 +288,6 @@ namespace LNCLibrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");

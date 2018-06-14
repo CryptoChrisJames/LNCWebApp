@@ -21,13 +21,18 @@ namespace LNCWebApp.Controllers
             _context = context;
         }
 
+        public async Task<List<CartItems>> GetCart(string CartID)
+        {
+            
+        }
+
         [HttpPost]
         [Route("AddToCart")]
-        public JsonResult AddToCart(CartItems CartItem)
+        public Task<List<CartItems>> AddToCart(CartItems CartItem)
         {
 
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
-            return Json(_shoppingCart.AddToCart(CartItem));
+            return  _shoppingCart.AddToCart(CartItem);
         }
 
         //        // PUT: api/Carts/5

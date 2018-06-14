@@ -17,6 +17,5 @@ namespace LNCLibrary.Models
         public float FinalPrice { get; set; }
         public int ConfirmationNumber { get; set; }
         public Status Status { get; set; }
-        public List<CartItems> Cart { get; set; }
     }
 }

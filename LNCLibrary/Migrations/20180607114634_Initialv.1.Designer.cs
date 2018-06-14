@@ -9,8 +9,8 @@ using LNCLibrary.Models;
 namespace LNCLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180602233236_Initial")]
-    partial class Initial
+    [Migration("20180607114634_Initialv.1")]
+    partial class Initialv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,8 +23,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("OrderID");
-
                     b.Property<string>("cartID");
 
                     b.Property<string>("itempicture");
@@ -36,8 +34,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("productID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("OrderID");
 
                     b.ToTable("CartItems");
                 });
@@ -255,13 +251,6 @@ namespace LNCLibrary.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
-                {
-                    b.HasOne("LNCLibrary.Models.Order")
-                        .WithMany("Cart")
-                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Size", b =>

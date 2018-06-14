@@ -22,8 +22,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("OrderID");
-
                     b.Property<string>("cartID");
 
                     b.Property<string>("itempicture");
@@ -35,8 +33,6 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("productID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("OrderID");
 
                     b.ToTable("CartItems");
                 });
@@ -254,13 +250,6 @@ namespace LNCLibrary.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
-                {
-                    b.HasOne("LNCLibrary.Models.Order")
-                        .WithMany("Cart")
-                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Size", b =>
