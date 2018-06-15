@@ -27,13 +27,21 @@ $(document).on('click', '#addToCart', function () {
 
 //Ajax function for opening a dialouge box that show's the user's current. 
 $(document).on('click', '#CartButton', function () {
-    $('#viewCart').dialog({
-        autoOpen: false,
-        modal: true,
-        show: "blind",
-        hide: "blind"
+    var cartID = GetCartbyID;
+    var RenderPartial = function (data) {
+        debugger;
+        var view = JSON.parse(data);
+        debugger;
+        $("#viewCart").html(view);
+    };
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: '/api/Carts/ShowCartPopup',
+        data: { 'cartID': cartID },
+        success: function (data) {
+            RenderPartial(data);
+        }
     });
-
-    $('#viewCart').dialog('open');
-
+        
 });
