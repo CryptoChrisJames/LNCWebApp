@@ -25,6 +25,9 @@ $(document).on('click', '#addToCart', function () {
 
 
 $(document).ready(function () {
+    var CartTotal = 0;
+    $("#CartTotal").text(CartTotal);
+    debugger;
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -52,21 +55,20 @@ $(document).ready(function () {
     }
 
 });
+$(document).on("click", "#addToCart", function () {
+    CartTotal += $(this).attr('price');
+    $("#CartTotal").text(CartTotal);
+});
 
 //Ajax function for 
 $(document).on('click', '#CartButton', function () {
     var cartID = GetCartbyID;
-    var RenderPartial = function (data) {
-        debugger;
-        $("#modal-body").html(data);
-    };
     $.ajax({
         type: "POST",
         url: '/api/Carts/ShowCartPopup',
         data: { "cartID": cartID },
         success: function (data) {
-            //RenderPartial(data);
-            $("#myModalBody").html(data)
+            $("#myModalBody").html(data);
         }
     });
 });
