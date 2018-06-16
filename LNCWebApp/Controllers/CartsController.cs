@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using LNCLibrary.Models;
 using LNCWebApp.Data;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+using LNCWebApp.Models;
 
 namespace LNCWebApp.Controllers
 {
@@ -16,20 +18,22 @@ namespace LNCWebApp.Controllers
     public class CartsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _currentUser;
 
-        public CartsController(ApplicationDbContext context)
+        public CartsController(ApplicationDbContext context, UserManager<ApplicationUser> currentUser)
         {
             _context = context;
+            _currentUser = currentUser;
         }
 
         [HttpPost]
         [Route("ShowCartPopup")]
-        public string ShowCartPopup(string cartID)
+        public PartialViewResult ShowCartPopup(string cartID)
         {
+           
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             List<CartItems> currentCart = _shoppingCart.GetCart(cartID);
-            string viewContent = JsonConvert.SerializeObject(PartialView("~/Views/Carts/_CartPartial.cshtml", currentCart));
-            return viewContent;
+            return PartialView("~/Views/Carts/_CartPartial.cshtml", currentCart);
         }
 
         [HttpPost]

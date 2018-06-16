@@ -24,24 +24,49 @@ $(document).on('click', '#addToCart', function () {
 });
 
 
+$(document).ready(function () {
+    // Get the modal
+    var modal = document.getElementById('myModal');
 
-//Ajax function for opening a dialouge box that show's the user's current. 
+    // Get the button that opens the modal
+    var btn = document.getElementById("CartButton");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+});
+
+//Ajax function for 
 $(document).on('click', '#CartButton', function () {
     var cartID = GetCartbyID;
     var RenderPartial = function (data) {
         debugger;
-        var view = JSON.parse(data);
-        debugger;
-        $("#viewCart").html(view);
+        $("#modal-body").html(data);
     };
     $.ajax({
         type: "POST",
-        dataType: 'json',
         url: '/api/Carts/ShowCartPopup',
-        data: { 'cartID': cartID },
+        data: { "cartID": cartID },
         success: function (data) {
-            RenderPartial(data);
+            //RenderPartial(data);
+            $("#myModalBody").html(data)
         }
     });
-        
 });

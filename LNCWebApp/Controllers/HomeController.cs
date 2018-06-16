@@ -30,7 +30,7 @@ namespace LNCWebApp.Controllers
             HVM.SessionID = HttpContext.Session.Id;
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             HVM.ShopProducts = await _context.Products.ToListAsync();
-            if (User.Identity.IsAuthenticated == true)
+            if (User.Identity.IsAuthenticated)
             {
                 HVM.CurrentUser = await _currentUser.GetUserAsync(User);
                 HVM.currentCart = _shoppingCart.GetCart(HVM.CurrentUser.UserName);
