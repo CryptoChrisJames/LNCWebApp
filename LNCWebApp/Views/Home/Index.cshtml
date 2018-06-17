@@ -218,7 +218,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                                 <button id="CartButton" class="flatbutton">View Cart<span class="glyphicon glyphicon-shopping-cart"></span></button>
-                                <div id="viewCart"></div>
+                                @*<div id="viewCart"></div>*@
+                                <!-- The Modal -->
+                                <div id="myModal" class="modal">
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close">&times;</span>
+                                            <h2>Total: $</h2><p id="CartTotal"></p>
+                                        </div>
+                                        <div class="modal-body" id="myModalBody">
+                                        </div>
+                                        @*<div class="modal-footer">
+                                            <h3>Modal Footer</h3>
+                                        </div>*@
+                                    </div>
+                                </div>
                             </div>
                         </nav>
                     </div>

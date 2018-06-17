@@ -1,0 +1,26 @@
+﻿@using LNCLibrary.Models;
+@model List<CartItems>
+<div>
+    @if (Model == null)
+    {
+
+        <div style="padding-left:24em"><h4><b> Your cart is currently empty. Feel free to select an item!</b></h4></div>
+
+    }
+    else
+    {
+
+        @foreach (var item in Model)
+        {
+                <div class="card">
+                    <div class="cardcontent">
+                        <img class="cartimg" src="~/ProductPictures/@item.itempicture" />
+                        <div class="container">
+                            <h4><b>$@item.price</b></h4>
+                        </div>
+                    </div>
+                </div>
+        }
+
+    }
+</div>

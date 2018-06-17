@@ -27,7 +27,10 @@ namespace LNCLibrary.Models
         //Getting the cart 
         public List<CartItems> GetCart(string CartID)
         {
-            ShoppingCartID = CartID;
+            if(ShoppingCartID != CartID)
+            {
+                ShoppingCartID = CartID;
+            }
             
             if (_context.CartItems.Any(c => c.cartID == CartID))
             {
@@ -48,6 +51,7 @@ namespace LNCLibrary.Models
                 return ShoppingCartItems;
         }
 
+        
         /// <summary>
         /// Adding items to cart
         /// </summary>
