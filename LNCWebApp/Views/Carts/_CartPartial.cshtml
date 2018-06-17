@@ -1,10 +1,11 @@
 ﻿@using LNCLibrary.Models;
 @model List<CartItems>
+
 <div>
     @if (Model == null)
     {
 
-        <div style="padding-left:24em"><h4><b> Your cart is currently empty. Feel free to select an item!</b></h4></div>
+        <div><h4><b> Your cart is currently empty. Feel free to select an item!</b></h4></div>
 
     }
     else
@@ -21,6 +22,7 @@
                     </div>
                 </div>
         }
+
 
     }
 </div>

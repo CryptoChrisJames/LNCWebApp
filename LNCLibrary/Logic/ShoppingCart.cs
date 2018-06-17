@@ -47,8 +47,12 @@ namespace LNCLibrary.Models
                                      }
                            ).ToList();
             }
-            
                 return ShoppingCartItems;
+        }
+
+        public int CurrentPrice(List<CartItems> currentCart)
+        {
+            
         }
 
         

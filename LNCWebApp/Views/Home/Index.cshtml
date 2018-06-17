@@ -225,7 +225,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <span class="close">&times;</span>
-                                            <h2>Total: $</h2><p id="CartTotal"></p>
+                                            <h2>Total: $<span id="CartTotal"></span></h2>
                                         </div>
                                         <div class="modal-body" id="myModalBody">
                                         </div>
@@ -394,6 +394,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                        cartid="@Model.SessionID" price="@item.Price"
                                        productid="@item.ID" productname="@item.ProductName"
                                        profilepicture="@item.ProfilePicture" />
+                                <input type="hidden" id="ItemPrice" 
+                                       value="@item.Price" />
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ using LNCWebApp.Data;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using LNCWebApp.Models;
+using LNCWebApp.HomeViewModels;
 
 namespace LNCWebApp.Controllers
 {
@@ -30,10 +31,12 @@ namespace LNCWebApp.Controllers
         [Route("ShowCartPopup")]
         public PartialViewResult ShowCartPopup(string cartID)
         {
-           
+            CartViewModel CVM = new CartViewModel();
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             List<CartItems> currentCart = _shoppingCart.GetCart(cartID);
-            return PartialView("~/Views/Carts/_CartPartial.cshtml", currentCart);
+            CVM.currentPrice = _shoppingCart.CurrentPrice(currentCart);
+            CVM.currentCart = currentCart;
+            return PartialView("~/Views/Carts/_CartPartial.cshtml", CVM);
         }
 
         [HttpPost]

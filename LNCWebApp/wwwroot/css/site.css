@@ -67,7 +67,7 @@
     -webkit-animation-duration: 0.4s;
     animation-name: fadeIn;
     animation-duration: 0.4s;    
-    padding-left:27.5em;
+    /*padding-left:27.5em;*/
 }
 
 /* Modal Content */
@@ -75,7 +75,7 @@
     position: fixed;
     bottom: 0;
     background-color: #fefefe;
-    width: 60%;
+    /*width: 60%;*/
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
@@ -104,15 +104,15 @@
 }
 
 .modal-body {
-    padding: 2px 16px;
+    /*padding: 2px 16px;*/
     display: flex;
     flex-direction:row;
-    grid-template-columns: fit-content(300px) fit-content(300px) 1fr;
+    /*grid-template-columns: fit-content(300px) fit-content(300px) 1fr;*/
     grid-gap: 5px;
     box-sizing: border-box;
     overflow-x:hidden;
     overflow-y:scroll;
-    height: 300px;
+    height: 225px;
 }
 
 .modal-footer {
@@ -127,7 +127,7 @@
     transition: 0.3s;
     width: 20%;
     height:inherit;
-    float: left;
+    /*float: left;*/
     padding: 1em;
     margin: 0 auto;
     display:inline-block;

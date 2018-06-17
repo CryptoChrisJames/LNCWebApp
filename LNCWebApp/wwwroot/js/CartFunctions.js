@@ -25,9 +25,6 @@ $(document).on('click', '#addToCart', function () {
 
 
 $(document).ready(function () {
-    var CartTotal = 0;
-    $("#CartTotal").text(CartTotal);
-    debugger;
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -49,15 +46,11 @@ $(document).ready(function () {
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
 
-});
-$(document).on("click", "#addToCart", function () {
-    CartTotal += $(this).attr('price');
-    $("#CartTotal").text(CartTotal);
 });
 
 //Ajax function for 
