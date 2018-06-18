@@ -50,12 +50,6 @@ namespace LNCLibrary.Models
                 return ShoppingCartItems;
         }
 
-        public int CurrentPrice(List<CartItems> currentCart)
-        {
-            
-        }
-
-        
         /// <summary>
         /// Adding items to cart
         /// </summary>

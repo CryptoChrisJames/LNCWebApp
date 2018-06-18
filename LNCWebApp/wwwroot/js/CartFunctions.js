@@ -9,6 +9,8 @@ $(document).on('click', '#addToCart', function () {
         price: $(this).attr('price'),
         cartid: $(this).attr('cartid')
     };
+    CartTotal += eval($("#ItemPrice").val());
+    $("#CartTotal").html(CartTotal);
     $.ajax({
         url: '/api/Carts/AddToCart',
         type: 'POST',

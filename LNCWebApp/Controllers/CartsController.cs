@@ -31,12 +31,9 @@ namespace LNCWebApp.Controllers
         [Route("ShowCartPopup")]
         public PartialViewResult ShowCartPopup(string cartID)
         {
-            CartViewModel CVM = new CartViewModel();
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             List<CartItems> currentCart = _shoppingCart.GetCart(cartID);
-            CVM.currentPrice = _shoppingCart.CurrentPrice(currentCart);
-            CVM.currentCart = currentCart;
-            return PartialView("~/Views/Carts/_CartPartial.cshtml", CVM);
+            return PartialView("~/Views/Carts/_CartPartial.cshtml", currentCart);
         }
 
         [HttpPost]

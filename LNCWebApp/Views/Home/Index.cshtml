@@ -29,7 +29,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             crossorigin="anonymous"></script>
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script type="text/javascript"> var GetCartbyID = "@Model.SessionID"</script>
+    <script type="text/javascript">
+        var GetCartbyID = "@Model.SessionID"
+        var CartTotal = 0;
+    </script>
     <!--Ajax MVC Jquery Cart-->
 
     <script type="text/javascript" src="~/js/CartFunctions.js"></script>
