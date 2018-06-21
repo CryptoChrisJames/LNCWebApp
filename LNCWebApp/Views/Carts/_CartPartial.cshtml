@@ -1,6 +1,7 @@
 ﻿@using LNCLibrary.Models;
 @model List<CartItems>
 
+
 <div>
     @if (Model == null)
     {
@@ -16,8 +17,15 @@
                 <div class="card">
                     <div class="cardcontent">
                         <img class="cartimg" src="~/ProductPictures/@item.itempicture" />
-                        <div class="container">
+                        <div style="float:left" class="container">
                             <h4><b>$@item.price</b></h4>
+                        </div>
+                        <div class="container">
+                            <button id="RemoveItem" type="submit" 
+                                    class="btn btn-xs btn-danger" 
+                                    value="@item.ID" cartid="@item.cartID">
+                                <span class="glyphicon glyphicon-remove"></span>&nbsp;
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
-﻿using LNCLibrary.Models;
+﻿using LNCLibrary.Logic;
+using LNCLibrary.Models;
 using LNCWebApp.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,31 +64,17 @@ namespace LNCLibrary.Models
             return ShoppingCartItems;
         }
 
-        //public int RemoveFromCart(int id)
-        //{
-        //    // Get the cart
-        //    var cartItem = storeDB.Carts.Single(
-        //        cart => cart.CartId == ShoppingCartId
-        //        && cart.RecordId == id);
+        public async Task<List<CartItems>> RemoveFromCart(RemovableItem RI)
+        {
+            CartItems item = new CartItems();
+            item.ID = RI.cartitemid;
+            _context.CartItems.Attach(item);
+            _context.CartItems.Remove(item);
+            await _context.SaveChangesAsync();
+            ShoppingCartItems = GetCart(RI.cartid);
+            return ShoppingCartItems;
+        }
 
-        //    int itemCount = 0;
-
-        //    if (cartItem != null)
-        //    {
-        //        if (cartItem.Count > 1)
-        //        {
-        //            cartItem.Count--;
-        //            itemCount = cartItem.Count;
-        //        }
-        //        else
-        //        {
-        //            storeDB.Carts.Remove(cartItem);
-        //        }
-        //        // Save changes
-        //        storeDB.SaveChanges();
-        //    }
-        //    return itemCount;
-        //}
         //public void EmptyCart()
         //{
         //    var cartItems = storeDB.Carts.Where(

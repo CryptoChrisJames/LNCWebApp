@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
 using LNCWebApp.Models;
 using LNCWebApp.HomeViewModels;
+using LNCLibrary.Logic;
 
 namespace LNCWebApp.Controllers
 {
@@ -44,6 +45,16 @@ namespace LNCWebApp.Controllers
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             return  _shoppingCart.AddToCart(CartItem);
         }
+
+        [HttpPost]
+        [Route("RemoveItem")]
+        public async Task<PartialViewResult> RemoveItem(RemovableItem RI)
+        {
+            ShoppingCart shoppingCart = new ShoppingCart(_context);
+            List<CartItems> updatdedCart = await shoppingCart.RemoveFromCart(RI);
+            return PartialView("~/Views/Carts/_CartPartial.cshtml", updatdedCart);
+        }
+
 
         //        // PUT: api/Carts/5
         //        [HttpPut("{id}")]

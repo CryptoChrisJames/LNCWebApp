@@ -17,15 +17,17 @@ $(document).on('click', '#addToCart', function () {
         dataType: 'json',
         data: CartData,
         success: function () {
-            console.log("Added to cart successfully. ")
+            console.log("Added to cart successfully. ");
         },
         error: function () {
-            console.log("Error: item was not added to cart.")
+            console.log("Error: item was not added to cart.");
         }
     });
 });
 
 
+//AJAX function initializing and handling 
+//the current display of the cart.
 $(document).ready(function () {
     // Get the modal
     var modal = document.getElementById('myModal');
@@ -55,13 +57,34 @@ $(document).ready(function () {
 
 });
 
-//Ajax function for 
+//Ajax function for retrieving the respective cart 
+//and displaying it for the user in the modal. 
 $(document).on('click', '#CartButton', function () {
     var cartID = GetCartbyID;
     $.ajax({
         type: "POST",
         url: '/api/Carts/ShowCartPopup',
         data: { "cartID": cartID },
+        success: function (data) {
+            $("#myModalBody").html(data);
+        }
+    });
+});
+
+
+//Ajax function for removing the respective cart item
+//selected by the user from the cart and updating the cart.
+$(document).on('click', '#RemoveItem', function () {
+    CartData = {
+        cartid: $(this).attr('cartid'),
+        cartitemid: $("#RemoveItem").val(),
+    }
+    CartTotal -= eval($("#ItemPrice").val());
+    $("#CartTotal").html(CartTotal);
+    $.ajax({
+        type: "POST",
+        url: '/api/Carts/RemoveItem',
+        data: CartData,
         success: function (data) {
             $("#myModalBody").html(data);
         }
