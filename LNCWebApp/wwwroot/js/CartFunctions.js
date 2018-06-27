@@ -26,7 +26,7 @@ $(document).on('click', '#addToCart', function () {
 });
 
 
-//AJAX function initializing and handling 
+//Jquery function initializing and handling 
 //the current display of the cart.
 $(document).ready(function () {
     // Get the modal
@@ -89,4 +89,19 @@ $(document).on('click', '#RemoveItem', function () {
             $("#myModalBody").html(data);
         }
     });
+});
+
+//Ajax function for removing the entire respective cart.
+$(document).on("click", "#EmptyCart", function () {
+    var cartid = $(this).val();
+    $.ajax({
+        type: "POST",
+        url: '/api/Carts/EmptyCart',
+        data: { "cartid": cartid },
+        success: function (data) {
+            $("#myModalBody").html(data);
+        }
+    });
+    CartTotal = 0;
+    $("#CartTotal").html(CartTotal);
 });
