@@ -233,11 +233,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         </div>
                                         <div class="modal-body" id="myModalBody">
                                         </div>
-                                        @*<div class="modal-footer">
-                                            <h3>Modal Footer</h3>
-                                        </div>*@
                                     </div>
                                 </div>
+                                <form asp-action="Checkout" asp-controller="Carts" method="post">
+                                    <input type="hidden" name="cartid" value="@Model.ShopID" />
+                                    <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                </form>
                             </div>
                         </nav>
                     </div>

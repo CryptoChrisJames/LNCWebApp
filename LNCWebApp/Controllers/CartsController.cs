@@ -65,5 +65,15 @@ namespace LNCWebApp.Controllers
             return PartialView("~/Views/Carts/_CartPartial.cshtml", emptiedcart);
         }
 
+        [HttpPost]
+        [Route("Checkout")]
+        public IActionResult Checkout (string cartid)
+        {
+            CartViewModel CVM = new CartViewModel();
+            ShoppingCart shoppingCart = new ShoppingCart(_context);
+            CVM.CartID = cartid;
+            CVM.CurrentCart = shoppingCart.GetCart(CVM.CartID);
+            return View(CVM);
+        }
     }
 }

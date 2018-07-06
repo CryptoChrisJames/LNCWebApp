@@ -105,3 +105,4 @@ $(document).on("click", "#EmptyCart", function () {
     CartTotal = 0;
     $("#CartTotal").html(CartTotal);
 });
+

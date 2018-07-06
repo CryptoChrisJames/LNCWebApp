@@ -11,5 +11,6 @@ namespace LNCLibrary.Models.HomeViewModel
         public ApplicationUser CurrentUser { get; set; }
         public string SessionID { get; set; }
         public List<CartItems> currentCart { get; set; }
+        public string ShopID { get; set; }
     }
 }

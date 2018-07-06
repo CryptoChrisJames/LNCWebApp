@@ -34,12 +34,14 @@ namespace LNCWebApp.Controllers
             {
                 HVM.CurrentUser = await _currentUser.GetUserAsync(User);
                 HVM.currentCart = _shoppingCart.GetCart(HVM.CurrentUser.UserName);
+                HVM.ShopID = HVM.CurrentUser.UserName;
                 return View(HVM);
             }
             else
             {
                  
                 HVM.currentCart = _shoppingCart.GetCart(HVM.SessionID);
+                HVM.ShopID = HVM.SessionID;
                 return View(HVM);
             }
         }
