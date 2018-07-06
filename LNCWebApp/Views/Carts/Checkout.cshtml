@@ -194,7 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="container">
                 <h2>My Shopping Bag (3)</h2>
                 <div class="cart-header">
-                    <div class="close1"> </div>
+                    <div id="CheckoutCart" class="close1"> </div>
                     @foreach (var item in Model.CurrentCart)
                     {
                         <div class="cart-sec simpleCart_shelfItem">
@@ -202,14 +202,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
                             </div>
                             <div class="cart-item-info">
-                                <h3><a href="#"> Lorem Ipsum is not simply </a><span>Pickup time:</span></h3>
-                                <ul class="qty">
-                                    <li><p>Min. order value:</p></li>
-                                    <li><p>FREE delivery</p></li>
-                                </ul>
+                                <h3><a href="#">@item.name</a></h3>
+                                @*<ul class="qty">
+            <li><p>Min. order value:</p></li>
+            <li><p>FREE delivery</p></li>
+        </ul>*@
                                 <div class="delivery">
-                                    <p>Service Charges : $10.00</p>
-                                    <span>Delivered in 1-1:30 hours</span>
+                                    <p>Price: @item.price</p>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
