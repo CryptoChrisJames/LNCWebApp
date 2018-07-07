@@ -77,5 +77,14 @@ namespace LNCWebApp.Controllers
             CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
             return View(CVM);
         }
+
+        [HttpPost]
+        [Route("RemoveItemAtCheckout")]
+        public async Task<PartialViewResult> RemoveItemAtCheckout(RemovableItem RI)
+        {
+            ShoppingCart shoppingCart = new ShoppingCart(_context);
+            List<CartItems> updatdedCart = await shoppingCart.RemoveFromCart(RI);
+            return PartialView("~/Views/Carts/_CartPartial.cshtml", updatdedCart);
+        }
     }
 }

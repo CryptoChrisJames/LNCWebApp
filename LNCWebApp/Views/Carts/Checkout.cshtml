@@ -1,6 +1,5 @@
 ﻿@using LNCWebApp.HomeViewModels
 @model CartViewModel
-
 <!--
 Au<!--
 Author: W3layouts
@@ -39,6 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- cart -->
     <script type="text/javascript" src="~/js/simpleCart.min.js"></script>
     <!-- cart -->
+    <script type="text/javascript" src="~/js/CartFunctions.js"></script>
 </head>
 <body>
     <!--header-->
@@ -106,11 +106,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     </ul>
                                                 </div>
                                                 @*<div class="col-sm-3  multi-gd-img">
-                                                    <a href="products.html"><img src="images/woo.jpg" alt=" " /></a>
-                                                </div>
-                                                <div class="col-sm-3  multi-gd-img">
-                                                    <a href="products.html"><img src="images/woo1.jpg" alt=" " /></a>
-                                                </div>*@
+                                                        <a href="products.html"><img src="images/woo.jpg" alt=" " /></a>
+                                                    </div>
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <a href="products.html"><img src="images/woo1.jpg" alt=" " /></a>
+                                                    </div>*@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
@@ -142,11 +142,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     </ul>
                                                 </div>
                                                 @*<div class="col-sm-3  multi-gd-img">
-                                                    <a href="products1.html"><img src="images/woo3.jpg" alt=" " /></a>
-                                                </div>
-                                                <div class="col-sm-3  multi-gd-img">
-                                                    <a href="products1.html"><img src="images/woo4.jpg" alt=" " /></a>
-                                                </div>*@
+                                                        <a href="products1.html"><img src="images/woo3.jpg" alt=" " /></a>
+                                                    </div>
+                                                    <div class="col-sm-3  multi-gd-img">
+                                                        <a href="products1.html"><img src="images/woo4.jpg" alt=" " /></a>
+                                                    </div>*@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
@@ -206,15 +206,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             {
 
                                 <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
+                                    <button id="RemoveItemAtCheckout" type="submit"
+                                            cartid="@item.cartID" cartitem="@item.ID"
+                                            style="float:right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
                                     <div class="cart-item cyc">
                                         <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
                                     </div>
                                     <div class="cart-item-info">
                                         <h3><a href="#">@item.name</a></h3>
                                         @*<ul class="qty">
-                            <li><p>Min. order value:</p></li>
-                            <li><p>FREE delivery</p></li>
-                        </ul>*@
+                                                <li><p>Min. order value:</p></li>
+                                                <li><p>FREE delivery</p></li>
+                                            </ul>*@
                                         <div class="delivery">
                                             <p>Price: @item.price</p>
                                             <div class="clearfix"></div>
@@ -224,12 +229,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </div>
                             }
                         </div>
-                        <div class="col-lg-6" id="CheckoutOptions" style="border-color:black; border-style:dotted;">
+                        <div class="col-lg-6" id="CheckoutOptions"
+                             style="border-color:black; border-style:dotted;">
                             <button class="checkoutbutton">Guest</button>
                             <button class="checkoutbutton">Login</button>
-                            <div class="FinalPrice clearfix">
-                                <h4>Final Price: </h4><h1>$@Model.CartTotal</h1>
-                            </div>
+                        </div>
+                        <div class="FinalPrice clearfix">
+                            <h4>Final Price: </h4><h1>$@Model.CartTotal</h1>
                         </div>
                     </div>
                 </div>
