@@ -73,6 +73,8 @@ namespace LNCWebApp.Controllers
             ShoppingCart shoppingCart = new ShoppingCart(_context);
             CVM.CartID = cartid;
             CVM.CurrentCart = shoppingCart.GetCart(CVM.CartID);
+            CVM.NumberOfItems = CVM.CurrentCart.Count;
+            CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
             return View(CVM);
         }
     }

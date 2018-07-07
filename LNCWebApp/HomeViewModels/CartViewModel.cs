@@ -13,5 +13,7 @@ namespace LNCWebApp.HomeViewModels
         public string SessionID { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string CartID { get; set; }
+        public int NumberOfItems { get; set; }
+        public int CartTotal { get; set; }
     }
 }

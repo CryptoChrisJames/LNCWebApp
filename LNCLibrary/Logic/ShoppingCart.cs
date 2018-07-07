@@ -83,6 +83,16 @@ namespace LNCLibrary.Models
             return ShoppingCartItems;
         }
 
+        public int Total(List<CartItems> currentCart)
+        {
+            int Total = 0;
+            foreach(var item in currentCart)
+            {
+                Total += item.price;
+            }
+            return Total;
+        }
+
         //// Come back when authentication is implemented.
         //// When a user has logged in, migrate their shopping cart to
         //// be associated with their username

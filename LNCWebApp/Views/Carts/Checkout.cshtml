@@ -22,16 +22,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="keywords" content="New Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <script src="~/js/jquery.min.js"></script>
+
     <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>
     <!--search jQuery-->
-    <script src="~/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"
+            integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
     <!--search jQuery-->
     <!--mycart-->
     <script type="text/javascript" src="~/js/bootstrap-3.1.1.min.js"></script>
     <!-- cart -->
-    <script src="~/js/simpleCart.min.js"></script>
+    <script type="text/javascript" src="~/js/simpleCart.min.js"></script>
     <!-- cart -->
 </head>
 <body>
@@ -99,12 +105,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         <li><a href="products.html">Jewellery</a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-sm-3  multi-gd-img">
+                                                @*<div class="col-sm-3  multi-gd-img">
                                                     <a href="products.html"><img src="images/woo.jpg" alt=" " /></a>
                                                 </div>
                                                 <div class="col-sm-3  multi-gd-img">
                                                     <a href="products.html"><img src="images/woo1.jpg" alt=" " /></a>
-                                                </div>
+                                                </div>*@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
@@ -135,12 +141,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         <li><a href="products.html">Jewellery</a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-sm-3  multi-gd-img">
+                                                @*<div class="col-sm-3  multi-gd-img">
                                                     <a href="products1.html"><img src="images/woo3.jpg" alt=" " /></a>
                                                 </div>
                                                 <div class="col-sm-3  multi-gd-img">
                                                     <a href="products1.html"><img src="images/woo4.jpg" alt=" " /></a>
-                                                </div>
+                                                </div>*@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
@@ -168,7 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <div class="total">
                                         <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
                                     </div>
-                                    <img src="images/bag.png" alt="" />
+                                    @*<img src="images/bag.png" alt="" />*@
                                 </h3>
                             </a>
                             <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
@@ -192,29 +198,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="content">
         <div class="cart-items">
             <div class="container">
-                <h2>My Shopping Bag (3)</h2>
+                <h2>My Shopping Bag (@Model.NumberOfItems)</h2>
                 <div class="cart-header">
-                    <div id="CheckoutCart" class="close1"> </div>
-                    @foreach (var item in Model.CurrentCart)
-                    {
-                        <div class="cart-sec simpleCart_shelfItem">
-                            <div class="cart-item cyc">
-                                <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
-                            </div>
-                            <div class="cart-item-info">
-                                <h3><a href="#">@item.name</a></h3>
-                                @*<ul class="qty">
-            <li><p>Min. order value:</p></li>
-            <li><p>FREE delivery</p></li>
-        </ul>*@
-                                <div class="delivery">
-                                    <p>Price: @item.price</p>
+                    <div class="container-fluid">
+                        <div class="col-lg-6" style="border-color:black; border-style:dotted;">
+                            @foreach (var item in Model.CurrentCart)
+                            {
+
+                                <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
+                                    <div class="cart-item cyc">
+                                        <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="cart-item-info">
+                                        <h3><a href="#">@item.name</a></h3>
+                                        @*<ul class="qty">
+                            <li><p>Min. order value:</p></li>
+                            <li><p>FREE delivery</p></li>
+                        </ul>*@
+                                        <div class="delivery">
+                                            <p>Price: @item.price</p>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
-                            </div>
-                            <div class="clearfix"></div>
+                            }
                         </div>
-                    }
+                        <div class="col-lg-6" id="CheckoutOptions" style="border-color:black; border-style:dotted;">
+                            <button class="checkoutbutton">Guest</button>
+                            <button class="checkoutbutton">Login</button>
+                            <div class="FinalPrice clearfix">
+                                <h4>Final Price: </h4><h1>$@Model.CartTotal</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,7 +291,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <p>&copy; 2016 New Shop . All rights reserved.</p>
             </div>
             <div class="copy-right">
-                <img src="images/card.png" alt="" />
+                @*<img src="images/card.png" alt="" />*@
             </div>
             <div class="clearfix"></div>
         </div>
