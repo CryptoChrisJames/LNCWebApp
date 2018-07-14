@@ -74,22 +74,3 @@ $(document).on("click", "#EmptyCart", function () {
     CartTotal = 0;
     $("#CartTotal").html(CartTotal);
 });
-
-//Ajax function for removing the respective cart item
-//selected by the user from the cart at checkout.
-$(document).on('click', '#RemoveItemAtCheckout', function () {
-    debugger;
-    var CartData = {
-        cartid: $(this).attr('cartid'),
-        cartitemid: $(this).attr('cartitem'),
-    }
-    debugger;
-    $.ajax({
-        type: "POST",
-        url: '/api/Carts/RemoveItemAtCheckout',
-        data: CartData,
-        success: function (data) {
-            
-        }
-    });
-});

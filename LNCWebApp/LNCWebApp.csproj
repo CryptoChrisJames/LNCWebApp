@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\CheckoutGuest\" />
     <Folder Include="wwwroot\ProductPictures\" />
   </ItemGroup>
 

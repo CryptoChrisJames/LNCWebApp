@@ -80,11 +80,19 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("RemoveItemAtCheckout")]
-        public async Task<PartialViewResult> RemoveItemAtCheckout(RemovableItem RI)
+        public async Task<IActionResult> RemoveItemAtCheckout(string cartid,int cartitemid)
         {
+            RemovableItem RI = new RemovableItem();
+            RI.cartid = cartid;
+            RI.cartitemid = cartitemid;
             ShoppingCart shoppingCart = new ShoppingCart(_context);
             List<CartItems> updatdedCart = await shoppingCart.RemoveFromCart(RI);
-            return PartialView("~/Views/Carts/_CartPartial.cshtml", updatdedCart);
+            CartViewModel CVM = new CartViewModel();
+            CVM.CartID = RI.cartid;
+            CVM.CurrentCart = shoppingCart.GetCart(CVM.CartID);
+            CVM.NumberOfItems = CVM.CurrentCart.Count;
+            CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
+            return View("~/Views/Carts/Checkout.cshtml", CVM);
         }
     }
 }

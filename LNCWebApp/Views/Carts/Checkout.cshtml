@@ -39,6 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript" src="~/js/simpleCart.min.js"></script>
     <!-- cart -->
     <script type="text/javascript" src="~/js/CartFunctions.js"></script>
+    <script type="text/javascript" src="~/js/GuestCheckout.js"></script>
 </head>
 <body>
     <!--header-->
@@ -206,11 +207,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             {
 
                                 <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
-                                    <button id="RemoveItemAtCheckout" type="submit"
-                                            cartid="@item.cartID" cartitem="@item.ID"
-                                            style="float:right">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
+                                    <form asp-action="RemoveItemAtCheckout" asp-controller="Carts" method="post">
+                                        <input type="hidden" name="cartid" value="@item.cartID" />
+                                        <input type="hidden" name="cartitemid" value="@item.ID" />
+                                        <button id="RemoveItemAtCheckout" type="submit" style="float:right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </form>
                                     <div class="cart-item cyc">
                                         <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
                                     </div>
@@ -231,7 +234,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                         <div class="col-lg-6" id="CheckoutOptions"
                              style="border-color:black; border-style:dotted;">
-                            <button class="checkoutbutton">Guest</button>
+                            <button class="checkoutbutton" id="GuestCheckout">Guest</button>
+                            <div id="GCModal" class="GCmodal">
+                                <!-- Modal content -->
+                                <div class="GCmodal-content">
+                                    <span class="GCclose">&times;</span>
+                                    <div class="GCModal-body"></div>
+                                </div>
+
+                            </div>
                             <button class="checkoutbutton">Login</button>
                         </div>
                         <div class="FinalPrice clearfix">
