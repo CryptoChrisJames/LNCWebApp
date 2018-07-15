@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\CheckoutGuest\**" />
     <Compile Remove="wwwroot\lib\NewFolder\**" />
+    <Content Remove="Views\CheckoutGuest\**" />
     <Content Remove="wwwroot\lib\NewFolder\**" />
+    <EmbeddedResource Remove="Views\CheckoutGuest\**" />
     <EmbeddedResource Remove="wwwroot\lib\NewFolder\**" />
+    <None Remove="Views\CheckoutGuest\**" />
     <None Remove="wwwroot\lib\NewFolder\**" />
   </ItemGroup>
 
@@ -66,7 +70,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\CheckoutGuest\" />
     <Folder Include="wwwroot\ProductPictures\" />
   </ItemGroup>
 

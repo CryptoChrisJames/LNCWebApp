@@ -9,8 +9,8 @@ using LNCLibrary.Models;
 namespace LNCLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180607114634_Initialv.1")]
-    partial class Initialv1
+    [Migration("20180715153649_InitialV.1")]
+    partial class InitialV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,8 @@ namespace LNCLibrary.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("OrderID");
 
                     b.Property<string>("cartID");
 
@@ -35,21 +37,58 @@ namespace LNCLibrary.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("OrderID");
+
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
+            modelBuilder.Entity("LNCLibrary.Models.GuestCustomer", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address");
+
+                    b.Property<string>("CheckoutComments");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("State");
+
+                    b.Property<int>("ZipCode");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("GuestCustomers");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
+                {
+                    b.Property<int>("ID");
+
                     b.Property<int>("ConfirmationNumber");
+
+                    b.Property<DateTime>("DateOfPurchase");
 
                     b.Property<float>("FinalPrice");
 
+                    b.Property<int>("PaymentMethod");
+
+                    b.Property<string>("RegularCustomerId");
+
                     b.Property<int>("Status");
 
+                    b.Property<bool>("isGuest");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("RegularCustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -251,6 +290,25 @@ namespace LNCLibrary.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Order")
+                        .WithMany("PurchasedItems")
+                        .HasForeignKey("OrderID");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.Order", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.GuestCustomer", "GuestCustomer")
+                        .WithOne("CurrentOrder")
+                        .HasForeignKey("LNCLibrary.Models.Order", "ID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LNCWebApp.Models.ApplicationUser", "RegularCustomer")
+                        .WithMany()
+                        .HasForeignKey("RegularCustomerId");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Size", b =>

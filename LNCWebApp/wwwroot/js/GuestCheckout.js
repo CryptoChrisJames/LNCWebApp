@@ -11,6 +11,16 @@
     // When the user clicks the button, open the modal 
     btn.onclick = function () {
         modal.style.display = "block";
+        CartID = $("#GuestCheckout").val();
+        $.ajax({
+            url: "GuestCheckout",
+            type: "POST",
+            datatype: "json",
+            data: { "CartID": CartID },
+            success: function (data) {
+                $(".GCModalBody").html(data);
+            }
+        });
     }
 
     // When the user clicks on <span> (x), close the modal

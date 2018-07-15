@@ -94,5 +94,17 @@ namespace LNCWebApp.Controllers
             CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
             return View("~/Views/Carts/Checkout.cshtml", CVM);
         }
+
+        [HttpPost]
+        [Route("GuestCheckout")]
+        public PartialViewResult GuestCheckout(string CartID)
+        {
+            GuestCheckoutViewModel GCVM = new GuestCheckoutViewModel();
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+            GCVM.GuestCart = _shoppingCart.GetCart(CartID);
+            GCVM.GuestOrder = new Order();
+            GCVM.CartID = CartID;
+            return PartialView("~/Views/Carts/GuestOrderCreation.cshtml", GCVM);
+        }
     }
 }
