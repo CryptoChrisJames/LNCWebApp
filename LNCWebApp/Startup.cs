@@ -15,6 +15,8 @@ using LNCWebApp.Services;
 using Microsoft.Extensions.Caching;
 using LNCLibrary.Models;
 using Microsoft.AspNetCore.Http;
+using Stripe;
+using LNCLibrary.Configurations.StripeConfig;
 
 namespace LNCWebApp
 {
@@ -59,6 +61,7 @@ namespace LNCWebApp
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +94,10 @@ namespace LNCWebApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+
+            
         }
     }
 }

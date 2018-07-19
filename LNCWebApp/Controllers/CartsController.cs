@@ -43,7 +43,7 @@ namespace LNCWebApp.Controllers
         {
 
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
-            return  _shoppingCart.AddToCart(CartItem);
+            return _shoppingCart.AddToCart(CartItem);
         }
 
         [HttpPost]
@@ -55,7 +55,7 @@ namespace LNCWebApp.Controllers
             return PartialView("~/Views/Carts/_CartPartial.cshtml", updatdedCart);
         }
 
-        
+
         [HttpPost]
         [Route("EmptyCart")]
         public async Task<PartialViewResult> EmptyCart(string cartid)
@@ -67,7 +67,7 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("Checkout")]
-        public IActionResult Checkout (string cartid)
+        public IActionResult Checkout(string cartid)
         {
             CartViewModel CVM = new CartViewModel();
             ShoppingCart shoppingCart = new ShoppingCart(_context);
@@ -80,7 +80,7 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("RemoveItemAtCheckout")]
-        public async Task<IActionResult> RemoveItemAtCheckout(string cartid,int cartitemid)
+        public async Task<IActionResult> RemoveItemAtCheckout(string cartid, int cartitemid)
         {
             RemovableItem RI = new RemovableItem();
             RI.cartid = cartid;
@@ -105,6 +105,21 @@ namespace LNCWebApp.Controllers
             GCVM.GuestOrder = new Order();
             GCVM.CartID = CartID;
             return PartialView("~/Views/Carts/GuestOrderCreation.cshtml", GCVM);
+        }
+
+        [HttpPost]
+        [Route("GuestOrderCreation")]
+        public PartialViewResult GuestOrderCreation(GuestCheckoutViewModel GCVM)
+        {
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+            GCVM.GuestCart = _shoppingCart.GetCart(GCVM.CartID);
+            GCVM.GuestOrder.CartID = GCVM.CartID;
+            GCVM.GuestOrder.FinalPrice = _shoppingCart.Total(GCVM.GuestCart);
+            GCVM.GuestOrder.Status = Status.Open;
+            GCVM.GuestOrder.isGuest = true;
+            GCVM.GuestOrder.PurchasedItems = GCVM.GuestCart;
+            GCVM.GuestOrder.CartID = GCVM.CartID;
+            return PartialView();
         }
     }
 }
