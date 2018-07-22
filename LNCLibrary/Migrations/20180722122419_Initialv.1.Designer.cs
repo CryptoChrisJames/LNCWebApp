@@ -9,9 +9,10 @@ using LNCLibrary.Models;
 namespace LNCLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180722122419_Initialv.1")]
+    partial class Initialv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.5")
@@ -21,6 +22,8 @@ namespace LNCLibrary.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("OrderID");
 
                     b.Property<string>("cartID");
 
@@ -33,6 +36,8 @@ namespace LNCLibrary.Migrations
                     b.Property<int>("productID");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
 
                     b.ToTable("CartItems");
                 });
@@ -51,6 +56,8 @@ namespace LNCLibrary.Migrations
                     b.Property<string>("City");
 
                     b.Property<int>("ConfirmationNumber");
+
+                    b.Property<int?>("CurrentOrderID");
 
                     b.Property<DateTime>("DateOfPurchase");
 
@@ -75,6 +82,8 @@ namespace LNCLibrary.Migrations
                     b.Property<bool>("isGuest");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CurrentOrderID");
 
                     b.HasIndex("RegularCustomerId");
 
@@ -280,8 +289,19 @@ namespace LNCLibrary.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("LNCLibrary.Models.CartItems", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Order")
+                        .WithMany("PurchasedItems")
+                        .HasForeignKey("OrderID");
+                });
+
             modelBuilder.Entity("LNCLibrary.Models.Order", b =>
                 {
+                    b.HasOne("LNCLibrary.Models.Order", "CurrentOrder")
+                        .WithMany()
+                        .HasForeignKey("CurrentOrderID");
+
                     b.HasOne("LNCWebApp.Models.ApplicationUser", "RegularCustomer")
                         .WithMany()
                         .HasForeignKey("RegularCustomerId");

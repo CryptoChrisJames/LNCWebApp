@@ -9,7 +9,6 @@ namespace LNCWebApp.HomeViewModels
     public class GuestCheckoutViewModel
     {
         public Order GuestOrder { get; set; }
-        public List<CartItems> GuestCart {get;set;}
         public string CartID { get; set; }
     }
 }

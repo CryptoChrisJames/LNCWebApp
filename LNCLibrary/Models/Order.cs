@@ -183,13 +183,10 @@ namespace LNCLibrary.Models
         public int ConfirmationNumber { get; set; }
         public Status Status { get; set; }
         public bool isGuest { get; set; }
-        public List<CartItems> PurchasedItems { get; set; }
         public ApplicationUser RegularCustomer { get; set; }
         public DateTime DateOfPurchase { get; set; }
         public string CartID { get; set; }
         public PaymentMethod PaymentMethod { get; set; } = (PaymentMethod)1;
-
-
         //Data that will need to be supplied by the user in order to complete the order. 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -204,7 +201,7 @@ namespace LNCLibrary.Models
         //cannot for the life of me remember why I did or what purpose it serves.
         //Seriously, I don't see the purpose of attaching an 
         //order to another order but maybe it'll be useful in the future...?
-        public Order CurrentOrder { get; set; }
+        //public Order CurrentOrder { get; set; }
 
     }
 }

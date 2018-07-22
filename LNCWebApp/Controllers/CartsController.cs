@@ -22,7 +22,8 @@ namespace LNCWebApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _currentUser;
 
-        public CartsController(ApplicationDbContext context, UserManager<ApplicationUser> currentUser)
+        public CartsController(ApplicationDbContext context, 
+            UserManager<ApplicationUser> currentUser)
         {
             _context = context;
             _currentUser = currentUser;
@@ -101,7 +102,6 @@ namespace LNCWebApp.Controllers
         {
             GuestCheckoutViewModel GCVM = new GuestCheckoutViewModel();
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
-            GCVM.GuestCart = _shoppingCart.GetCart(CartID);
             GCVM.GuestOrder = new Order();
             GCVM.CartID = CartID;
             return PartialView("~/Views/Carts/GuestOrderCreation.cshtml", GCVM);
@@ -109,17 +109,16 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("GuestOrderCreation")]
-        public PartialViewResult GuestOrderCreation(GuestCheckoutViewModel GCVM)
+        public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM)
         {
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
-            GCVM.GuestCart = _shoppingCart.GetCart(GCVM.CartID);
             GCVM.GuestOrder.CartID = GCVM.CartID;
-            GCVM.GuestOrder.FinalPrice = _shoppingCart.Total(GCVM.GuestCart);
             GCVM.GuestOrder.Status = Status.Open;
             GCVM.GuestOrder.isGuest = true;
-            GCVM.GuestOrder.PurchasedItems = GCVM.GuestCart;
-            GCVM.GuestOrder.CartID = GCVM.CartID;
-            return PartialView();
+            await _context.Orders.AddAsync(GCVM.GuestOrder);
+            await _context.SaveChangesAsync();
+            TempData["cartid"] = GCVM.CartID;
+            return RedirectToAction("Index", "Payment", GCVM.CartID);
         }
     }
 }
