@@ -93,6 +93,12 @@ namespace LNCLibrary.Models
             return Total;
         }
 
+        public int StripeTotal(int Total)
+        {
+            int StripeTotal = Total * 100;
+            return StripeTotal;
+        }
+
         //// Come back when authentication is implemented.
         //// When a user has logged in, migrate their shopping cart to
         //// be associated with their username

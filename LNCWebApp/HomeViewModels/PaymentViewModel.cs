@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace LNCWebApp.HomeViewModels
 {
-    public class GuestCheckoutViewModel
+    public class PaymentViewModel
     {
-        public Order GuestOrder { get; set; }
-        public string CartID { get; set; }
+        public Order CurrentOrder { get; set; }
         public List<CartItems> CurrentCart { get; set; }
-        public int TotalForStripe { get; set; }
+        public string CurrentCartId { get; set; }
     }
 }

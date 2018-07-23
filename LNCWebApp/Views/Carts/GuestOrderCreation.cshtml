@@ -1,4 +1,8 @@
+@using Microsoft.Extensions.Options
+@using LNCLibrary.Configurations.StripeConfig
+@inject IOptions<StripeSettings> Stripe
 @model LNCWebApp.HomeViewModels.GuestCheckoutViewModel
+
 
 <form asp-action="GuestOrderCreation">
     <div class="form-horizontal">
@@ -61,12 +65,22 @@
                 <span asp-validation-for="@Model.GuestOrder.ZipCode" class="text-danger"></span>
             </div>
         </div>
+        <article>
+            <label>Amount: $@Model.GuestOrder.FinalPrice</label>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublicKey"
+                data-locale="auto"
+                data-description="Sample Charge"
+                data-amount="@Model.TotalForStripe">
+        </script>
         <input type="hidden" value="@Model.CartID" name="CartID" />
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
-        </div>
+        </div>*@
     </div>
 </form>
 

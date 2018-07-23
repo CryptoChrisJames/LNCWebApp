@@ -96,7 +96,6 @@ namespace LNCWebApp
             });
 
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
-
             
         }
     }

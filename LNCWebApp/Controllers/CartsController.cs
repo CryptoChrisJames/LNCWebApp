@@ -104,21 +104,30 @@ namespace LNCWebApp.Controllers
             ShoppingCart _shoppingCart = new ShoppingCart(_context);
             GCVM.GuestOrder = new Order();
             GCVM.CartID = CartID;
+            GCVM.CurrentCart = _shoppingCart.GetCart(CartID);
+            GCVM.GuestOrder.FinalPrice = _shoppingCart.Total(GCVM.CurrentCart);
+            GCVM.TotalForStripe = _shoppingCart.StripeTotal((int)GCVM.GuestOrder.FinalPrice);
             return PartialView("~/Views/Carts/GuestOrderCreation.cshtml", GCVM);
         }
 
         [HttpPost]
         [Route("GuestOrderCreation")]
-        public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM)
-        {
-            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+        public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM, string StripeEmail, string StripeToken)
+        { 
             GCVM.GuestOrder.CartID = GCVM.CartID;
             GCVM.GuestOrder.Status = Status.Open;
             GCVM.GuestOrder.isGuest = true;
             await _context.Orders.AddAsync(GCVM.GuestOrder);
             await _context.SaveChangesAsync();
-            TempData["cartid"] = GCVM.CartID;
-            return RedirectToAction("Index", "Payment", GCVM.CartID);
+            CashingOut CO = new CashingOut();
+            if(CO.StripePayment(StripeEmail, StripeToken))
+            {
+                return RedirectToAction("Index", "Payments", GCVM.CartID);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
