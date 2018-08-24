@@ -7,7 +7,7 @@ namespace LNCLibrary.Logic
 {
     public class CashingOut
     {
-        public bool StripePayment(string StripeEmail, string stripeToken)
+        public bool StripePayment(string StripeEmail, string stripeToken, int StripeTotal)
         {
             var customers = new StripeCustomerService();
             var charges = new StripeChargeService();
@@ -22,7 +22,7 @@ namespace LNCLibrary.Logic
 
                 var charge = charges.Create(new StripeChargeCreateOptions
                 {
-                    Amount = 500,
+                    Amount = StripeTotal,
                     Description = "Sample Charge",
                     Currency = "usd",
                     CustomerId = customer.Id
@@ -34,6 +34,19 @@ namespace LNCLibrary.Logic
             {
                 return false;
             }
+        }
+
+        public string ConfirmationNumber()
+        {
+
+            Random random = new Random();
+            string cnum = "";
+            int i;
+            for (i = 1; i < 16; i++)
+            {
+                cnum += random.Next(0, 9);
+            }
+            return cnum;
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using LNCWebApp.Data;
 using LNCLibrary.Models;
+using LNCWebApp.Models;
 
 namespace LNCLibrary.Migrations
 {
@@ -50,7 +51,7 @@ namespace LNCLibrary.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<int>("ConfirmationNumber");
+                    b.Property<string>("ConfirmationNumber");
 
                     b.Property<DateTime>("DateOfPurchase");
 
@@ -79,6 +80,28 @@ namespace LNCLibrary.Migrations
                     b.HasIndex("RegularCustomerId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.OrderDetails", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CartID");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("OrderID");
+
+                    b.Property<int>("price");
+
+                    b.Property<string>("productpicture");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
+
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Product", b =>
@@ -130,6 +153,12 @@ namespace LNCLibrary.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
+                    b.Property<string>("CheckoutComments");
+
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -137,6 +166,10 @@ namespace LNCLibrary.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -156,10 +189,14 @@ namespace LNCLibrary.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<int>("State");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<int>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -283,8 +320,16 @@ namespace LNCLibrary.Migrations
             modelBuilder.Entity("LNCLibrary.Models.Order", b =>
                 {
                     b.HasOne("LNCWebApp.Models.ApplicationUser", "RegularCustomer")
-                        .WithMany()
+                        .WithMany("OrderHistory")
                         .HasForeignKey("RegularCustomerId");
+                });
+
+            modelBuilder.Entity("LNCLibrary.Models.OrderDetails", b =>
+                {
+                    b.HasOne("LNCLibrary.Models.Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LNCLibrary.Models.Size", b =>

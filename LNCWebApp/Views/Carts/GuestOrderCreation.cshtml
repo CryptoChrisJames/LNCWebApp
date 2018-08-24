@@ -65,17 +65,15 @@
                 <span asp-validation-for="@Model.GuestOrder.ZipCode" class="text-danger"></span>
             </div>
         </div>
-        <article>
-            <label>Amount: $@Model.GuestOrder.FinalPrice</label>
-        </article>
-        <script src="//checkout.stripe.com/v2/checkout.js"
+        @*<script src="//checkout.stripe.com/v2/checkout.js"
                 class="stripe-button"
                 data-key="@Stripe.Value.PublicKey"
                 data-locale="auto"
                 data-description="Sample Charge"
                 data-amount="@Model.TotalForStripe">
-        </script>
+        </script>*@
         <input type="hidden" value="@Model.CartID" name="CartID" />
+        <input type="submit" value="Proceed to Payment" class="btn-default"/>
         @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

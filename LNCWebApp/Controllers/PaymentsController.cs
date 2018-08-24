@@ -10,6 +10,7 @@ using LNCWebApp.Data;
 using LNCWebApp.HomeViewModels;
 using LNCWebApp.Models;
 using Microsoft.AspNetCore.Identity;
+using LNCLibrary.Logic;
 
 namespace LNCWebApp.Controllers
 {
@@ -25,9 +26,23 @@ namespace LNCWebApp.Controllers
         }
 
         // GET: Payments
-        public IActionResult Index(string CartID)
+        public async Task<IActionResult >Index(string stripeEmail, string stripeToken, string CartID, int stripeTotal)
         {
-            return View();
+            CashingOut CO = new CashingOut();
+            if (CO.StripePayment(stripeEmail, stripeToken, stripeTotal))
+            {
+                OrderManager OM = new OrderManager(_context);
+                OM.CartID = CartID;
+                OM.CurrentOrder = await OM.GetNewOrder(OM.CartID);
+                OM.CurrentOrder.DateOfPurchase = DateTime.Now;
+                OM.CurrentOrder.Status = Status.Closed;
+                OM.CurrentOrder.ConfirmationNumber = CO.ConfirmationNumber();
+                return View(OM.CurrentOrder);
+            }
+            else
+            {
+                return View();
+            }
         }
         
     }

@@ -112,22 +112,30 @@ namespace LNCWebApp.Controllers
 
         [HttpPost]
         [Route("GuestOrderCreation")]
-        public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM, string StripeEmail, string StripeToken)
+        public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM)
         { 
             GCVM.GuestOrder.CartID = GCVM.CartID;
             GCVM.GuestOrder.Status = Status.Open;
             GCVM.GuestOrder.isGuest = true;
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+            GCVM.CurrentCart = _shoppingCart.GetCart(GCVM.CartID);
+            GCVM.GuestOrder.FinalPrice = _shoppingCart.Total(GCVM.CurrentCart);
+            GCVM.GuestOrder.FinalPrice = _shoppingCart.Total(GCVM.CurrentCart);
+            GCVM.TotalForStripe = _shoppingCart.StripeTotal((int)GCVM.GuestOrder.FinalPrice);
             await _context.Orders.AddAsync(GCVM.GuestOrder);
             await _context.SaveChangesAsync();
-            CashingOut CO = new CashingOut();
-            if(CO.StripePayment(StripeEmail, StripeToken))
-            {
-                return RedirectToAction("Index", "Payments", GCVM.CartID);
-            }
-            else
-            {
-                return View();
-            }
+            return View("~/Views/Carts/ConfirmOrder.cshtml", GCVM);
+            //CashingOut CO = new CashingOut();
+            //if (CO.StripePayment(StripeEmail, StripeToken, GCVM.TotalForStripe))
+            //{
+            //    return RedirectToAction("Index", "Payments", GCVM.CartID);
+            //}
+            //else
+            //{
+            //    return View();
+            //}
+            //CO.StripePayment(StripeEmail, StripeToken, GCVM.TotalForStripe);
+            //return RedirectToAction("Index", "Payments", GCVM.CartID);
         }
     }
 }

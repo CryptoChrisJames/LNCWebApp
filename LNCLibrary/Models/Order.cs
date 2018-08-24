@@ -180,14 +180,16 @@ namespace LNCLibrary.Models
 
         public int ID { get; set; }
         public float FinalPrice { get; set; }
-        public int ConfirmationNumber { get; set; }
+        public string ConfirmationNumber { get; set; }
         public Status Status { get; set; }
         public bool isGuest { get; set; }
         public ApplicationUser RegularCustomer { get; set; }
         public DateTime DateOfPurchase { get; set; }
         public string CartID { get; set; }
         public PaymentMethod PaymentMethod { get; set; } = (PaymentMethod)1;
+
         //Data that will need to be supplied by the user in order to complete the order. 
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
@@ -196,12 +198,7 @@ namespace LNCLibrary.Models
         public string Email { get; set; }
         public string CheckoutComments { get; set; }
         public int ZipCode { get; set; }
-
-        //I put this in here a few days ago but I 
-        //cannot for the life of me remember why I did or what purpose it serves.
-        //Seriously, I don't see the purpose of attaching an 
-        //order to another order but maybe it'll be useful in the future...?
-        //public Order CurrentOrder { get; set; }
+        public virtual List<OrderDetails> OrderDetails { get; set; }
 
     }
 }

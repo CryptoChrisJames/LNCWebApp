@@ -6,7 +6,6 @@
     left: 50%;
     bottom: 0%;
     transform: translateX(-50%);
-    border: 2px outset black;
 }
 
 .LVNColorCart:after {
@@ -193,8 +192,6 @@
 
 #CartIteminCheckout {
     padding:5px;
-    border:solid;
-    border-color:red;
     margin:2em;
 }
 
