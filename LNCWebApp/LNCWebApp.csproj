@@ -75,26 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\anime-master\.gitignore" />
-    <None Include="wwwroot\js\anime-master\anime.js" />
-    <None Include="wwwroot\js\anime-master\anime.min.js" />
-    <None Include="wwwroot\js\anime-master\build.js" />
-    <None Include="wwwroot\js\anime-master\CNAME" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.1.0.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.1.3.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.2.0.0.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.2.0.1.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.2.0.2.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\anime.2.1.0.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\beautify-html.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\fireworks.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\highlight.pack.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\scripts.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\site.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\stats.js" />
-    <None Include="wwwroot\js\anime-master\documentation\assets\js\stats.min.js" />
-    <None Include="wwwroot\js\anime-master\LICENSE.md" />
-    <None Include="wwwroot\js\anime-master\README.md" />
     <None Include="wwwroot\lib\jquery\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
     <None Include="wwwroot\lib\jquery\jquery-ui-1.12.1.custom\jquery-ui.js" />
     <None Include="wwwroot\lib\jquery\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
