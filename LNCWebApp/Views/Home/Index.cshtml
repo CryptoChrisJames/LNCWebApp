@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        var GetCartbyID = "@Model.SessionID"
+        var GetCartbyID = "@Model.ShopID"
         var CartTotal = 0;
     </script>
     <!--Ajax MVC Jquery Cart-->
@@ -230,16 +230,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <div class="modal-header">
                                             <span class="close">&times;</span>
                                             <h2 style="float:left">Total: $<span id="CartTotal"></span></h2>
-                                            <button style="float:right; margin-right:7em;" id="EmptyCart" value="@Model.SessionID">Empty Cart</button>
+                                            <button style="float:right; margin-right:7em;" id="EmptyCart" value="@Model.ShopID">Empty Cart</button>
                                         </div>
                                         <div class="modal-body" id="myModalBody">
                                         </div>
                                     </div>
                                 </div>
-                                <form asp-action="Checkout" asp-controller="Carts" method="post">
-                                    <input type="hidden" name="cartid" value="@Model.ShopID" />
-                                    <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
-                                </form>
+                                @if(SignInManager.IsSignedIn(User))
+                                {
+                                    <form asp-action="OrderCreation" asp-controller="Carts" method="post">
+                                        <input type="hidden" name="cartid" value="@Model.ShopID" />
+                                        <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="Checkout" asp-controller="Carts" method="post">
+                                        <input type="hidden" name="cartid" value="@Model.ShopID" />
+                                        <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                    </form>
+                                }
                             </div>
                         </nav>
                     </div>
@@ -397,7 +407,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <span class="size">XL / XXL / S </span>
                                 <p>@*<del>$100.00</del>*@<em class="item_price">$@item.Price</em></p>
                                 <input id="addToCart" type="button" style="padding-bottom:1em;"
-                                       cartid="@Model.SessionID" price="@item.Price"
+                                       cartid="@Model.ShopID" price="@item.Price"
                                        productid="@item.ID" productname="@item.ProductName"
                                        profilepicture="@item.ProfilePicture" />
                                 <input type="hidden" id="ItemPrice" 

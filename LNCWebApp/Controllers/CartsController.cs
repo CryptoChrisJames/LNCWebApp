@@ -22,7 +22,7 @@ namespace LNCWebApp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _currentUser;
 
-        public CartsController(ApplicationDbContext context, 
+        public CartsController(ApplicationDbContext context,
             UserManager<ApplicationUser> currentUser)
         {
             _context = context;
@@ -113,7 +113,7 @@ namespace LNCWebApp.Controllers
         [HttpPost]
         [Route("GuestOrderCreation")]
         public async Task<IActionResult> GuestOrderCreation(GuestCheckoutViewModel GCVM)
-        { 
+        {
             GCVM.GuestOrder.CartID = GCVM.CartID;
             GCVM.GuestOrder.Status = Status.Open;
             GCVM.GuestOrder.isGuest = true;
@@ -124,18 +124,102 @@ namespace LNCWebApp.Controllers
             GCVM.TotalForStripe = _shoppingCart.StripeTotal((int)GCVM.GuestOrder.FinalPrice);
             await _context.Orders.AddAsync(GCVM.GuestOrder);
             await _context.SaveChangesAsync();
-            return View("~/Views/Carts/ConfirmOrder.cshtml", GCVM);
-            //CashingOut CO = new CashingOut();
-            //if (CO.StripePayment(StripeEmail, StripeToken, GCVM.TotalForStripe))
-            //{
-            //    return RedirectToAction("Index", "Payments", GCVM.CartID);
-            //}
-            //else
-            //{
-            //    return View();
-            //}
-            //CO.StripePayment(StripeEmail, StripeToken, GCVM.TotalForStripe);
-            //return RedirectToAction("Index", "Payments", GCVM.CartID);
+            CheckoutViewModel CVM = new CheckoutViewModel();
+            CVM.GCVM = GCVM;
+            return View("~/Views/Carts/ConfirmOrder.cshtml", CVM);
         }
+
+        [HttpPost]
+        [Route("OrderCreation")]
+        public async Task<IActionResult> OrderCreation(string cartid)
+        {
+            ApplicationUser currentUser = await _currentUser.GetUserAsync(User);
+            if (currentUser.Id == cartid)
+            {
+                OrderViewModel OVM = new OrderViewModel();
+                Order newOrder = new Order();
+                OVM.CartID = cartid;
+                OVM.CurrentOrder = newOrder;
+                OVM.CurrentOrder.FirstName = currentUser.FirstName;
+                OVM.CurrentOrder.LastName = currentUser.LastName;
+                OVM.CurrentOrder.Address = currentUser.Address;
+                OVM.CurrentOrder.City = currentUser.City;
+                OVM.CurrentOrder.State = currentUser.State;
+                OVM.CurrentOrder.Email = currentUser.Email;
+                OVM.CurrentOrder.ZipCode = currentUser.ZipCode;
+                OVM.CurrentOrder.CheckoutComments = currentUser.CheckoutComments;
+                OVM.CurrentOrder.CartID = OVM.CartID;
+                OVM.CurrentOrder.Status = Status.Open;
+                OVM.CurrentOrder.isGuest = false;
+                ShoppingCart _shoppingCart = new ShoppingCart(_context);
+                OVM.CurrentCart = _shoppingCart.GetCart(OVM.CartID);
+                OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
+                OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
+                OVM.TotalForStripe = _shoppingCart.StripeTotal((int)OVM.CurrentOrder.FinalPrice);
+                await _context.Orders.AddAsync(OVM.CurrentOrder);
+                await _context.SaveChangesAsync();
+                CheckoutViewModel CVM = new CheckoutViewModel();
+                CVM.OVM = OVM;
+                return View("~/Views/Carts/ConfirmOrder.cshtml", CVM);
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
+
+
+        [HttpGet]
+        [Route("LoginAtCheckout")]
+        public async Task<IActionResult> LoginAtCheckout(string cartid)
+        {
+            ApplicationUser currentUser = await _currentUser.GetUserAsync(User);
+            if (currentUser.Id == cartid)
+            {
+                OrderViewModel OVM = new OrderViewModel();
+                Order newOrder = new Order();
+                OVM.CartID = cartid;
+                OVM.CurrentOrder = newOrder;
+                OVM.CurrentOrder.FirstName = currentUser.FirstName;
+                OVM.CurrentOrder.LastName = currentUser.LastName;
+                OVM.CurrentOrder.Address = currentUser.Address;
+                OVM.CurrentOrder.City = currentUser.City;
+                OVM.CurrentOrder.State = currentUser.State;
+                OVM.CurrentOrder.Email = currentUser.Email;
+                OVM.CurrentOrder.ZipCode = currentUser.ZipCode;
+                OVM.CurrentOrder.CheckoutComments = currentUser.CheckoutComments;
+                OVM.CurrentOrder.CartID = OVM.CartID;
+                OVM.CurrentOrder.Status = Status.Open;
+                OVM.CurrentOrder.isGuest = false;
+                ShoppingCart _shoppingCart = new ShoppingCart(_context);
+                OVM.CurrentCart = _shoppingCart.GetCart(OVM.CartID);
+                OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
+                OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
+                OVM.TotalForStripe = _shoppingCart.StripeTotal((int)OVM.CurrentOrder.FinalPrice);
+                await _context.Orders.AddAsync(OVM.CurrentOrder);
+                await _context.SaveChangesAsync();
+                CheckoutViewModel CVM = new CheckoutViewModel();
+                CVM.OVM = OVM;
+                return View("~/Views/Carts/ConfirmOrder.cshtml", CVM);
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
+
+        [HttpGet]
+        [Route("MigrateAfterLogin")]
+        public async Task<IActionResult> MigrateAfterLogin(string CartID)
+        {
+            ApplicationUser currentUser = await _currentUser.GetUserAsync(User);
+            ShoppingCart _shoppingCart = new ShoppingCart(_context);
+            await _shoppingCart.MigrateCart(currentUser.Id,CartID);
+            return RedirectToAction("LoginAtCheckout", new { CartID = currentUser.Id });
+        }
+
+
     }
 }

@@ -33,8 +33,13 @@ namespace LNCWebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 HVM.CurrentUser = await _currentUser.GetUserAsync(User);
-                HVM.currentCart = _shoppingCart.GetCart(HVM.CurrentUser.UserName);
-                HVM.ShopID = HVM.CurrentUser.UserName;
+                HVM.currentCart = _shoppingCart.GetCart(HVM.CurrentUser.Id);
+                HVM.ShopID = HVM.CurrentUser.Id;
+                if(HVM.currentCart != null)
+                {
+                    HVM.currentCart = await _shoppingCart.EmptyCart(HVM.ShopID);
+                }
+
                 return View(HVM);
             }
             else

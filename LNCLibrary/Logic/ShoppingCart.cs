@@ -102,16 +102,27 @@ namespace LNCLibrary.Models
         //// Come back when authentication is implemented.
         //// When a user has logged in, migrate their shopping cart to
         //// be associated with their username
-        //public void MigrateCart(string userName)
-        //{
-        //    var shoppingCart = storeDB.Carts.Where(
-        //        c => c.CartId == ShoppingCartId);
 
-        //    foreach (Cart item in shoppingCart)
-        //    {
-        //        item.CartId = userName;
-        //    }
-        //    storeDB.SaveChanges();
-        //}
+        public async Task<string> MigrateCart(string userId, string cartId)
+        {
+            ShoppingCartItems = GetCart(cartId);
+            ShoppingCartID = userId;
+            foreach(CartItems item in ShoppingCartItems)
+            {
+                item.cartID = ShoppingCartID;
+            }
+
+            await _context.SaveChangesAsync();
+            return "Ok";
+
+            //var shoppingCart = storeDB.Carts.Where(
+            //    c => c.CartId == ShoppingCartId);
+
+            //foreach (Cart item in shoppingCart)
+            //{
+            //    item.CartId = userName;
+            //}
+            //storeDB.SaveChanges();
+        }
     }
 }

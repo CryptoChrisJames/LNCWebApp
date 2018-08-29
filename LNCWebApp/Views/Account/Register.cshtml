@@ -219,13 +219,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <input asp-for="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
+
+                        <h4>Information we can use for shipping purposes.</h4>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address"></label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="State"></label>
+                            <input asp-for="State" class="form-control" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ZipCode"></label>
+                            <input asp-for="ZipCode" class="form-control" />
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
                         <input type="submit" value="Register">
                     </form>
-                </div>
-                <div class="forg">
-                    <a href="#" class="forg-left">Forgot Password</a>
-                    <a href="registered.html" class="forg-right">Register</a>
-                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>

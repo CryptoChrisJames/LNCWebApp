@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using LNCWebApp.Models;
 using LNCWebApp.Models.AccountViewModels;
 using LNCWebApp.Services;
+using LNCWebApp.HomeViewModels;
 
 namespace LNCWebApp.Controllers
 {
@@ -53,6 +54,19 @@ namespace LNCWebApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+        
+        //
+        // GET: /Account/LoginAtCheckout
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginAtCheckout(string cartid)
+        {
+            LoginAtCheckoutViewModel LACVM = new LoginAtCheckoutViewModel();
+            LACVM.currentCartId = cartid;
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            return View(LACVM);
+        }
 
         //
         // POST: /Account/Login
@@ -71,6 +85,44 @@ namespace LNCWebApp.Controllers
                 {
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning(2, "User account locked out.");
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // POST: /Account/LoginAtCheckout
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoginAtCheckout(LoginAtCheckoutViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation(1, "User logged in.");
+                    return RedirectToAction("MigrateAfterLogin", "Carts", new { CartID = model.currentCartId });
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -112,7 +164,19 @@ namespace LNCWebApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    City = model.City,
+                    State = model.State,
+                    ZipCode = model.ZipCode
+                };
+
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

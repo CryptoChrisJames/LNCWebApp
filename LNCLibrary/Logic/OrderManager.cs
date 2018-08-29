@@ -28,11 +28,12 @@ namespace LNCLibrary.Logic
             return currentOrder;
         }
 
-        public async Task<Order> GetNewOrder(string CartID)
+        public async Task<Order> GetNewOrder(string CartID, int OrderID)
         {
             Order currentOrder = new Order();
 
-            currentOrder = _context.Orders.FirstOrDefault(o => o.CartID == CartID);
+            currentOrder = _context.Orders.Where(o => o.CartID == CartID)
+                .Where(o => o.ID == OrderID).FirstOrDefault();
 
             return await (ConvertCartToOrder(currentOrder));
         }

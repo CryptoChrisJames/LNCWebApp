@@ -2,7 +2,7 @@
 @using Microsoft.Extensions.Options
 @using LNCLibrary.Configurations.StripeConfig
 @inject IOptions<StripeSettings> Stripe
-@model GuestCheckoutViewModel
+@model CheckoutViewModel
 <!--
 Au<!--
 Author: W3layouts
@@ -189,62 +189,124 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h3><a href="index.html">Home</a> / <span>Checkout</span></h3>
         </div>
     </div>
-    <div class="content">
-        <div class="cart-items">
-            <div class="container">
-                <div class="cart-header">
-
-                    <div class="container-fluid" align="center">
-                        <div>
-                            <h1> Order Details</h1>
+    @if (Model.OVM != null)
+    {
+        <div class="content">
+            <div class="cart-items">
+                <div class="container">
+                    <div class="cart-header">
+                        <div class="container-fluid" align="center">
                             <div>
-                                <p><b>Name:</b></p> <p>@Model.GuestOrder.FirstName @Model.GuestOrder.LastName</p>
-                                <p><b>Address:</b></p> <p>@Model.GuestOrder.Address</p>
-                                <p>@Model.GuestOrder.City, @Model.GuestOrder.State @Model.GuestOrder.ZipCode</p>
-                                <p><b>Email:</b></p> <p>@Model.GuestOrder.Email</p>
+                                <h1> Order Details</h1>
+                                <div>
+                                    <p><b>Name:</b></p> <p>@Model.OVM.CurrentOrder.FirstName @Model.OVM.CurrentOrder.LastName</p>
+                                    <p><b>Address:</b></p> <p>@Model.OVM.CurrentOrder.Address</p>
+                                    <p>@Model.OVM.CurrentOrder.City, @Model.OVM.CurrentOrder.State @Model.OVM.CurrentOrder.ZipCode</p>
+                                    <p><b>Email:</b></p> <p>@Model.OVM.CurrentOrder.Email</p>
+                                </div>
                             </div>
-                        </div>
-                        @foreach (var item in Model.CurrentCart)
-                        {
+                            @foreach (var item in Model.OVM.CurrentCart)
+                            {
 
-                            <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
-                                <form asp-action="RemoveItemAtCheckout" asp-controller="Carts" method="post">
-                                    <input type="hidden" name="cartid" value="@item.cartID" />
-                                    <input type="hidden" name="cartitemid" value="@item.ID" />
-                                </form>
-                                <div class="cart-item cyc">
-                                    <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
-                                </div>
-                                <div class="cart-item-info">
-                                    <h3><a href="#">@item.name</a></h3>
-                                    <div class="delivery">
-                                        <p><b>Price: @item.price</b></p>
-                                        <div class="clearfix"></div>
+                                <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
+                                    <form asp-action="RemoveItemAtCheckout" asp-controller="Carts" method="post">
+                                        <input type="hidden" name="cartid" value="@item.cartID" />
+                                        <input type="hidden" name="cartitemid" value="@item.ID" />
+                                    </form>
+                                    <div class="cart-item cyc">
+                                        <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
                                     </div>
+                                    <div class="cart-item-info">
+                                        <h3><a href="#">@item.name</a></h3>
+                                        <div class="delivery">
+                                            <p><b>Price: @item.price</b></p>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
+                            }
+                            <div class="FinalPrice clearfix">
+                                <h4>Final Price: </h4><h1>$@Model.OVM.CurrentOrder.FinalPrice</h1>
+                                <form action="/Payments/Index" method="post">
+                                    <script src="//checkout.stripe.com/v2/checkout.js"
+                                            class="stripe-button"
+                                            data-key="@Stripe.Value.PublicKey"
+                                            data-locale="auto"
+                                            data-description="Sample Charge"
+                                            data-amount="@Model.OVM.TotalForStripe">
+                                    </script>
+                                    <input type="hidden" name="stripeTotal" value="@Model.OVM.TotalForStripe" />
+                                    <input type="hidden" name="CartID" value="@Model.OVM.CartID" />
+                                    <input type="hidden" name="OrderID" value="@Model.OVM.CurrentOrder.ID"/>
+                                </form>
                             </div>
-                        }
-                        <div class="FinalPrice clearfix">
-                            <h4>Final Price: </h4><h1>$@Model.GuestOrder.FinalPrice</h1>
-                                                  <form action="/Payments/Index" method="post">
-                                                      <script src="//checkout.stripe.com/v2/checkout.js"
-                                                              class="stripe-button"
-                                                              data-key="@Stripe.Value.PublicKey"
-                                                              data-locale="auto"
-                                                              data-description="Sample Charge"
-                                                              data-amount="@Model.TotalForStripe">
-                                                      </script>
-                                                      <input type="hidden" name="stripeTotal" value="@Model.TotalForStripe"/>
-                                                      <input type="hidden" name="CartID" value="@Model.CartID"/>
-                                                  </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- checkout -->
         </div>
-        <!-- checkout -->
-    </div>
+    }
+    else
+    {
+        <div class="content">
+            <div class="cart-items">
+                <div class="container">
+                    <div class="cart-header">
+                        <div class="container-fluid" align="center">
+                            <div>
+                                <h1> Order Details</h1>
+                                <div>
+                                    <p><b>Name:</b></p> <p>@Model.GCVM.GuestOrder.FirstName @Model.GCVM.GuestOrder.LastName</p>
+                                    <p><b>Address:</b></p> <p>@Model.GCVM.GuestOrder.Address</p>
+                                    <p>@Model.GCVM.GuestOrder.City, @Model.GCVM.GuestOrder.State @Model.GCVM.GuestOrder.ZipCode</p>
+                                    <p><b>Email:</b></p> <p>@Model.GCVM.GuestOrder.Email</p>
+                                </div>
+                            </div>
+                            @foreach (var item in Model.GCVM.CurrentCart)
+                            {
+
+                                <div class="cart-sec simpleCart_shelfItem" id="CartIteminCheckout">
+                                    <form asp-action="RemoveItemAtCheckout" asp-controller="Carts" method="post">
+                                        <input type="hidden" name="cartid" value="@item.cartID" />
+                                        <input type="hidden" name="cartitemid" value="@item.ID" />
+                                    </form>
+                                    <div class="cart-item cyc">
+                                        <img src="~/ProductPictures/@item.itempicture" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="cart-item-info">
+                                        <h3><a href="#">@item.name</a></h3>
+                                        <div class="delivery">
+                                            <p><b>Price: @item.price</b></p>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            }
+                            <div class="FinalPrice clearfix">
+                                <h4>Final Price: </h4><h1>$@Model.GCVM.GuestOrder.FinalPrice</h1>
+                                                      <form action="/Payments/Index" method="post">
+                                                          <script src="//checkout.stripe.com/v2/checkout.js"
+                                                                  class="stripe-button"
+                                                                  data-key="@Stripe.Value.PublicKey"
+                                                                  data-locale="auto"
+                                                                  data-description="Sample Charge"
+                                                                  data-amount="@Model.GCVM.TotalForStripe">
+                                                          </script>
+                                                          <input type="hidden" name="stripeTotal" value="@Model.GCVM.TotalForStripe" />
+                                                          <input type="hidden" name="CartID" value="@Model.GCVM.CartID" />
+                                                          <input type="hidden" name="OrderID" value="@Model.GCVM.GuestOrder.ID" />
+                                                      </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- checkout -->
+        </div>
+    }
     <!---footer--->
     <div class="footer-w3l">
         <div class="container">

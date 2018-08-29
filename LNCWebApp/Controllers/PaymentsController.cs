@@ -26,17 +26,19 @@ namespace LNCWebApp.Controllers
         }
 
         // GET: Payments
-        public async Task<IActionResult >Index(string stripeEmail, string stripeToken, string CartID, int stripeTotal)
+        public async Task<IActionResult >Index(string stripeEmail, string stripeToken, string CartID, int stripeTotal, int OrderID)
         {
             CashingOut CO = new CashingOut();
             if (CO.StripePayment(stripeEmail, stripeToken, stripeTotal))
             {
                 OrderManager OM = new OrderManager(_context);
                 OM.CartID = CartID;
-                OM.CurrentOrder = await OM.GetNewOrder(OM.CartID);
+                OM.CurrentOrder = await OM.GetNewOrder(OM.CartID, OrderID);
                 OM.CurrentOrder.DateOfPurchase = DateTime.Now;
                 OM.CurrentOrder.Status = Status.Closed;
                 OM.CurrentOrder.ConfirmationNumber = CO.ConfirmationNumber();
+                ShoppingCart emptyCart = new ShoppingCart(_context);
+                await emptyCart.EmptyCart(CartID);
                 return View(OM.CurrentOrder);
             }
             else
