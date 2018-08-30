@@ -13,6 +13,8 @@ using LNCWebApp.Models;
 using LNCWebApp.Models.AccountViewModels;
 using LNCWebApp.Services;
 using LNCWebApp.HomeViewModels;
+using LNCLibrary.Models;
+using LNCWebApp.Data;
 
 namespace LNCWebApp.Controllers
 {
@@ -32,7 +34,8 @@ namespace LNCWebApp.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -122,7 +125,7 @@ namespace LNCWebApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToAction("MigrateAfterLogin", "Carts", new { CartID = model.currentCartId });
+                    return RedirectToAction("LoginAtCheckout", "Carts", new { CartID = model.currentCartId });
                 }
                 if (result.RequiresTwoFactor)
                 {
