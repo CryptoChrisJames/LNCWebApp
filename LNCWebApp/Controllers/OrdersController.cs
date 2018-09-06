@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LNCLibrary.Models;
 using LNCWebApp.Data;
+using LNCLibrary.Logic;
 
 namespace LNCWebApp.Controllers
 {
@@ -22,46 +23,25 @@ namespace LNCWebApp.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            OrderManager OM = new OrderManager(_context);
+            return View(await OM.GetClosedOrders());
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
+            var OM = new OrderManager(_context);
+            var order = await OM.GetOrderByID(id);
+            order.OrderDetails = OM.GetOrderDetails(order.ID);
             return View(order);
         }
 
-        // GET: Orders/Create
-        public IActionResult Create()
+        // GET: Orders/Details/5
+        public async Task<IActionResult> ArchiveDetails(int id)
         {
-            return View();
-        }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FinalPrice,ConfirmationNumber,Status,isGuest,DateOfPurchase,CartID,PaymentMethod,FirstName,LastName,Address,City,State,Email,CheckoutComments,ZipCode")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+            var OM = new OrderManager(_context);
+            var order = await OM.GetOrderByID(id);
+            order.OrderDetails = OM.GetOrderDetails(order.ID);
             return View(order);
         }
 
@@ -148,6 +128,21 @@ namespace LNCWebApp.Controllers
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.ID == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ArchiveOrder (int OrderID)
+        {
+            var OM = new OrderManager(_context);
+            string status = await OM.ArchiveOrder(OrderID);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Archive()
+        {
+            OrderManager OM = new OrderManager(_context);
+            return View(await OM.GetArchivedOrders());
         }
     }
 }

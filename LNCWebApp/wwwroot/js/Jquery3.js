@@ -82,7 +82,7 @@
 
 
     var isWindow = function isWindow(obj) {
-        return obj != null && obj === obj.window;
+        return obj !== null && obj === obj.window;
     };
 
 
@@ -113,7 +113,7 @@
 
 
     function toType(obj) {
-        if (obj == null) {
+        if (obj === null) {
             return obj + "";
         }
 
@@ -162,7 +162,7 @@
         get: function (num) {
 
             // Return all the elements in a clean array
-            if (num == null) {
+            if (num === null) {
                 return slice.call(this);
             }
 
@@ -254,7 +254,7 @@
         for (; i < length; i++) {
 
             // Only deal with non-null/undefined values
-            if ((options = arguments[i]) != null) {
+            if ((options = arguments[i]) !== null) {
 
                 // Extend the base object
                 for (name in options) {
@@ -368,7 +368,7 @@
 
         // Support: Android <=4.0 only
         trim: function (text) {
-            return text == null ?
+            return text === null ?
                 "" :
                 (text + "").replace(rtrim, "");
         },
@@ -377,7 +377,7 @@
         makeArray: function (arr, results) {
             var ret = results || [];
 
-            if (arr != null) {
+            if (arr !== null) {
                 if (isArrayLike(Object(arr))) {
                     jQuery.merge(ret,
                         typeof arr === "string" ?
@@ -392,7 +392,7 @@
         },
 
         inArray: function (elem, arr, i) {
-            return arr == null ? -1 : indexOf.call(arr, elem, i);
+            return arr === null ? -1 : indexOf.call(arr, elem, i);
         },
 
         // Support: Android <=4.0 only, PhantomJS 1 only
@@ -442,7 +442,7 @@
                 for (; i < length; i++) {
                     value = callback(elems[i], i, arg);
 
-                    if (value != null) {
+                    if (value !== null) {
                         ret.push(value);
                     }
                 }
@@ -452,7 +452,7 @@
                 for (i in elems) {
                     value = callback(elems[i], i, arg);
 
-                    if (value != null) {
+                    if (value !== null) {
                         ret.push(value);
                     }
                 }
@@ -1730,7 +1730,7 @@
                         return function (elem) {
                             var result = Sizzle.attr(elem, name);
 
-                            if (result == null) {
+                            if (result === null) {
                                 return operator === "!=";
                             }
                             if (!operator) {
@@ -2064,7 +2064,7 @@
 
                             // Support: IE<8
                             // New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-                            ((attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text");
+                            ((attr = elem.getAttribute("type")) === null || attr.toLowerCase() === "text");
                     },
 
                     // Position-in-collection

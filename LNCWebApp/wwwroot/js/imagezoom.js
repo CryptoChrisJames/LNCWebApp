@@ -31,7 +31,7 @@
         imageWidth = $(this).width(),
         imageHeight = $(this).height(),
         cursorSize = [(settings.zoomviewsize[0]/settings.magnification),(settings.zoomviewsize[1]/settings.magnification)];
-        if(data.imagezoom == true){
+        if(data.imagezoom === true){
           imageSrc = $(this).attr('src');
         }else{
           imageSrc = $(this).get(0).getAttribute('data-imagezoom');
@@ -40,7 +40,7 @@
         var posX = e.pageX,posY = e.pageY,zoomViewPositionX;
         $('body').prepend('<div class="imagezoom-cursor">&nbsp;</div><div class="imagezoom-view"><img src="'+imageSrc+'"></div>');
 
-        if(settings.zoomviewposition == 'right'){
+        if(settings.zoomviewposition === 'right'){
           zoomViewPositionX = (offset.left+imageWidth+settings.zoomviewmargin);
         }else{
           zoomViewPositionX = (offset.left-imageWidth-settings.zoomviewmargin);

@@ -50,7 +50,7 @@
       var productIndex = -1;
       var products = getAllProducts();
       $.each(products, function(index, value){
-        if(value.id == id){
+        if(value.id === id){
           productIndex = index;
           return;
         }
@@ -127,7 +127,7 @@
     var removeProduct = function(id){
       var products = getAllProducts();
       products = $.grep(products, function(value, index) {
-        return value.id != id;
+        return value.id !== id;
       });
       setAllProducts(products);
     }
@@ -298,7 +298,7 @@
     });
 
     $(document).on('keypress', "." + classProductQuantity, function(evt){
-      if(evt.keyCode == 38 || evt.keyCode == 40){
+      if(evt.keyCode === 38 || evt.keyCode === 40){
         return ;
       }
       evt.preventDefault();

@@ -73,7 +73,7 @@
       var tmp = document.createElement("div"),
           result = ""; // Store results here
       for (var i = 0; i < prefixes.length; i++) {
-        if (typeof tmp.style[prefixes[i]] != 'undefined') {
+        if (typeof tmp.style[prefixes[i]] !== 'undefined') {
           result = prefixes[i];
           break;
         } else {
@@ -144,7 +144,7 @@
         // Create dynamically dot items and append them to container
         var buffer = []; // Container of all dot items that will be created later
         for (var i = 0; i < slideCount + 1; i++) {
-          if (i == currentSlide) {
+          if (i === currentSlide) {
             // Make current item active from begin
             buffer.push('<div class="' + self.settings.controlNavItemSelector + ' ' + self.settings.activeClass + '"></div>');
           } else {
@@ -214,7 +214,7 @@
               $sliderNextBtn.addClass(self.settings.disabledClass);
             }
           }
-          if (remainingItems.right == 0) {
+          if (remainingItems.right === 0) {
             index = 0; // If loop enavled - rollup to first slide
           }
         } else {
@@ -225,7 +225,7 @@
               $sliderPrevBtn.addClass(self.settings.disabledClass);
             }
           }
-          if (remainingItems.left == 0 && !isFirstLoad) {
+          if (remainingItems.left === 0 && !isFirstLoad) {
             index = slideCount - self.settings.items + 1;
           }
         }

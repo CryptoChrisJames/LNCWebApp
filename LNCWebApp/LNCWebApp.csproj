@@ -80,4 +80,13 @@
     <None Include="wwwroot\lib\jquery\jquery-ui-1.12.1.custom\jquery-ui.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Orders\Archive.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Orders\ArchiveDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
