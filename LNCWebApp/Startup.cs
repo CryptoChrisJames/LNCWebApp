@@ -17,6 +17,7 @@ using LNCLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Stripe;
 using LNCLibrary.Configurations.StripeConfig;
+using Microsoft.AspNetCore.Identity;
 
 namespace LNCWebApp
 {
@@ -65,7 +66,7 @@ namespace LNCWebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider sp)
         {
             app.UseSession();
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -95,8 +96,49 @@ namespace LNCWebApp
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            CreateRoles(sp).Wait();
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
             
         }
+
+        public async Task CreateRoles(IServiceProvider sp)
+        {
+            //add roles 
+            var RoleManager = sp.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = sp.GetRequiredService<UserManager<ApplicationUser>>();
+            string role = "Admin";
+            IdentityResult roleresult;
+
+            //Create role if it doesn't already exist
+            var roleexist = await RoleManager.RoleExistsAsync(role);
+            if(!roleexist)
+            {
+                roleresult = await RoleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            var poweruser = new ApplicationUser
+            {
+                UserName = Configuration.GetSection("Admin1")["Email"],
+                Email = Configuration.GetSection("Admin1")["Email"]
+            };
+
+            string UserPassword = Configuration.GetSection("Admin1")["Password"];
+            var user = await UserManager
+                .FindByEmailAsync(Configuration
+                .GetSection("Admin1")["Email"]);
+            if(user == null)
+            {
+                var createpoweruser = await UserManager.CreateAsync(poweruser, UserPassword);
+                if(createpoweruser.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+                }
+            }
+            else
+            {
+                await UserManager.AddToRoleAsync(poweruser, "Admin");
+            }
+        }
+        
     }
 }

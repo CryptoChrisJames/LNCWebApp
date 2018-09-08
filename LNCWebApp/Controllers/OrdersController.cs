@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using LNCLibrary.Models;
 using LNCWebApp.Data;
 using LNCLibrary.Logic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LNCWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;

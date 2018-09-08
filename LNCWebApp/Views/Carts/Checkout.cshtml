@@ -202,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <h2>My Shopping Bag (@Model.NumberOfItems)</h2>
                 <div class="cart-header">
                     <div class="container-fluid">
-                        <div class="col-lg-6" style="border-color:black; border-style:dotted;">
+                        <div class="col-lg-6">
                             @foreach (var item in Model.CurrentCart)
                             {
 
@@ -232,8 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </div>
                             }
                         </div>
-                        <div class="col-lg-6" id="CheckoutOptions"
-                             style="border-color:black; border-style:dotted;">
+                        <div class="col-lg-6" id="CheckoutOptions">
                             <button class="checkoutbutton" id="GuestCheckout" value="@Model.CartID">Guest</button>
                             <div id="GCModal" class="GCmodal">
                                 <!-- Modal content -->

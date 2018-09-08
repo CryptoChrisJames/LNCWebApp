@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LNCWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        //[Authorize("")]
         public IActionResult Index()
         {
             return View();

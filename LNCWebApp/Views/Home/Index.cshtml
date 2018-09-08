@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/lib/jquery/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        var GetCartbyID = "@Model.ShopID"
+        var GetCartbyID = "@Model.ShopID";
         var CartTotal = 0;
     </script>
     <!--Ajax MVC Jquery Cart-->
@@ -99,8 +99,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="header-top">
             <div class="container">
                 <div class="top-left">
-                    <a href="#"> Help  <i class="glyphicon glyphicon-phone" aria-hidden="true"></i> +0123-456-789</a>
-                    <a asp-controller="Admin" asp-action="Index">Administration</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="Index">Administration</a>
+                    }
                 </div>
                 <div class="top-right" style="padding-right:1em;">
                     <ul>
@@ -114,7 +116,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="container">
                 <div class="logo-nav">
                     <div class="logo-nav-left">
-                        <h1><a href="index.html">New Shop <span>Shop anywhere</span></a></h1>
+                        <h1><a asp-action="Index">New Shop <span>Shop anywhere</span></a></h1>
                     </div>
                     <div class="logo-nav-left1">
                         <nav class="navbar navbar-default">
@@ -129,7 +131,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="index.html" class="act">Home</a></li>
+                                    <li class="active"><a asp-action="Index" class="act">Home</a></li>
                                     <!-- Mega Menu -->
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women<b class="caret"></b></a>
@@ -240,14 +242,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 {
                                     <form asp-action="OrderCreation" asp-controller="Carts" method="post">
                                         <input type="hidden" name="cartid" value="@Model.ShopID" />
-                                        <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                        <button id="Checkout" style="margin-top:0.3em;" class="flatbutton" type="submit">Checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
                                     </form>
                                 }
                                 else
                                 {
                                     <form asp-action="Checkout" asp-controller="Carts" method="post">
                                         <input type="hidden" name="cartid" value="@Model.ShopID" />
-                                        <button type="submit">checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                        <button id="Checkout" style="margin-top:0.3em;" class="flatbutton" type="submit">Checkout<span class="glyphicon glyphicon-shopping-cart"></span></button>
                                     </form>
                                 }
                             </div>
@@ -406,10 +408,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <h6><a href="single.html">@item.ProductName</a></h6>
                                 <span class="size">XL / XXL / S </span>
                                 <p>@*<del>$100.00</del>*@<em class="item_price">$@item.Price</em></p>
-                                <input id="addToCart" type="button" style="padding-bottom:1em;"
+                                <input class="flatbutton" id="addToCart" type="button" style="padding-bottom:1em;"
                                        cartid="@Model.ShopID" price="@item.Price"
                                        productid="@item.ID" productname="@item.ProductName"
-                                       profilepicture="@item.ProfilePicture" />
+                                       profilepicture="@item.ProfilePicture"
+                                       value="Add To Cart"/>
                                 <input type="hidden" id="ItemPrice" 
                                        value="@item.Price" />
                             </div>

@@ -74,9 +74,16 @@ namespace LNCWebApp.Controllers
             ShoppingCart shoppingCart = new ShoppingCart(_context);
             CVM.CartID = cartid;
             CVM.CurrentCart = shoppingCart.GetCart(CVM.CartID);
-            CVM.NumberOfItems = CVM.CurrentCart.Count;
-            CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
-            return View(CVM);
+            if(CVM.CurrentCart != null)
+            {
+                CVM.NumberOfItems = CVM.CurrentCart.Count;
+                CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
+                return View(CVM);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
@@ -91,9 +98,16 @@ namespace LNCWebApp.Controllers
             CartViewModel CVM = new CartViewModel();
             CVM.CartID = RI.cartid;
             CVM.CurrentCart = shoppingCart.GetCart(CVM.CartID);
-            CVM.NumberOfItems = CVM.CurrentCart.Count;
-            CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
-            return View("~/Views/Carts/Checkout.cshtml", CVM);
+            if(CVM.CurrentCart != null)
+            {
+                CVM.NumberOfItems = CVM.CurrentCart.Count;
+                CVM.CartTotal = shoppingCart.Total(CVM.CurrentCart);
+                return View("~/Views/Carts/Checkout.cshtml", CVM);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
@@ -152,13 +166,20 @@ namespace LNCWebApp.Controllers
                 OVM.CurrentOrder.isGuest = false;
                 ShoppingCart _shoppingCart = new ShoppingCart(_context);
                 OVM.CurrentCart = _shoppingCart.GetCart(OVM.CartID);
-                OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
-                OVM.TotalForStripe = _shoppingCart.StripeTotal((int)OVM.CurrentOrder.FinalPrice);
-                await _context.Orders.AddAsync(OVM.CurrentOrder);
-                await _context.SaveChangesAsync();
-                CheckoutViewModel CVM = new CheckoutViewModel();
-                CVM.OVM = OVM;
-                return View("~/Views/Carts/ConfirmOrder.cshtml", CVM);
+                if(OVM.CurrentCart != null)
+                {
+                    OVM.CurrentOrder.FinalPrice = _shoppingCart.Total(OVM.CurrentCart);
+                    OVM.TotalForStripe = _shoppingCart.StripeTotal((int)OVM.CurrentOrder.FinalPrice);
+                    await _context.Orders.AddAsync(OVM.CurrentOrder);
+                    await _context.SaveChangesAsync();
+                    CheckoutViewModel CVM = new CheckoutViewModel();
+                    CVM.OVM = OVM;
+                    return View("~/Views/Carts/ConfirmOrder.cshtml", CVM);
+                }
+                else
+                {
+                    return RedirectToAction("Index","Home");
+                }
             }
             else
             {
