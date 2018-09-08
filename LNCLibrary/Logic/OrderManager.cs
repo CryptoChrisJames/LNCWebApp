@@ -100,5 +100,13 @@ namespace LNCLibrary.Logic
             await _context.SaveChangesAsync();
             return "Ok";
         }
+
+        public async Task<List<Order>> GetUserOrders(string id)
+        {
+            List<Order> Orders = await _context.Orders.
+                Where(r => r.CartID == id && r.Status == Status.Closed || r.Status == Status.Archived).
+                ToListAsync();
+            return Orders;
+        }
     }
 }

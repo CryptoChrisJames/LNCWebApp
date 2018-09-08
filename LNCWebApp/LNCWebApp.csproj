@@ -81,6 +81,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Manage\OrderDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Manage\Orders.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Orders\Archive.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

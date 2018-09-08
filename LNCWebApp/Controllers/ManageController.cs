@@ -10,6 +10,9 @@ using Microsoft.Extensions.Options;
 using LNCWebApp.Models;
 using LNCWebApp.Models.ManageViewModels;
 using LNCWebApp.Services;
+using LNCWebApp.Data;
+using LNCLibrary.Logic;
+using LNCLibrary.Models;
 
 namespace LNCWebApp.Controllers
 {
@@ -22,6 +25,7 @@ namespace LNCWebApp.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
@@ -29,7 +33,8 @@ namespace LNCWebApp.Controllers
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IEmailSender emailSender,
           ISmsSender smsSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,6 +42,7 @@ namespace LNCWebApp.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            _context = context;
         }
 
         //
@@ -341,6 +347,22 @@ namespace LNCWebApp.Controllers
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
 
+        public async Task<IActionResult> Orders()
+        {
+            var user = await GetCurrentUserAsync();
+            OrderManager OM = new OrderManager(_context);
+            List<Order> userOrders = await OM.GetUserOrders(user.Id);
+            return View(userOrders);
+        }
+
+        // GET: Orders/Details/5
+        public async Task<IActionResult> OrderDetails(int id)
+        {
+            var OM = new OrderManager(_context);
+            var order = await OM.GetOrderByID(id);
+            order.OrderDetails = OM.GetOrderDetails(order.ID);
+            return View(order);
+        }
         #region Helpers
 
         private void AddErrors(IdentityResult result)
