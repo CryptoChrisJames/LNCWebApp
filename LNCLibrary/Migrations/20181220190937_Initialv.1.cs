@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LNCLibrary.Migrations
 {
-    public partial class InitialV1 : Migration
+    public partial class Initialv1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -136,7 +136,7 @@ namespace LNCLibrary.Migrations
                     CartID = table.Column<string>(nullable: true),
                     CheckoutComments = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
-                    ConfirmationNumber = table.Column<int>(nullable: false),
+                    ConfirmationNumber = table.Column<string>(nullable: true),
                     DateOfPurchase = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     FinalPrice = table.Column<float>(nullable: false),

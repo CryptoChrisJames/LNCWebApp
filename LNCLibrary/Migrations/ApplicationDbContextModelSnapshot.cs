@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using LNCWebApp.Data;
 using LNCLibrary.Models;
-using LNCWebApp.Models;
 
 namespace LNCLibrary.Migrations
 {

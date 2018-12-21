@@ -31,11 +31,16 @@ namespace LNCWebApp.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                   .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("appsettings.json")
-                   .Build();
-                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                //IConfigurationRoot configuration = new ConfigurationBuilder()
+                //   .SetBasePath(Directory.GetCurrentDirectory())
+                //   .AddJsonFile("appsettings.json")
+                //   .Build();
+                //var connectionString = configuration.GetConnectionString("DefaultConnection");
+                var connectionString = "Data Source=obsidiandb.crjvbstix97q.us-east-2.rds.amazonaws.com,1433;Initial Catalog=LNCTest;" +
+                    "User ID=obsidiantech;Password=Obsidian12!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
+                    "ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                //var connectionString = "Data Source=CHRISTOPHER09E8;Initial Catalog=LNCTest;Integrated Security=True;" +
+                //    "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }

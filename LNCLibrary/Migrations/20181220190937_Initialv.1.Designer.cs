@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using LNCWebApp.Data;
 using LNCLibrary.Models;
-using LNCWebApp.Models;
 
 namespace LNCLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180824031521_InitialV.1")]
-    partial class InitialV1
+    [Migration("20181220190937_Initialv.1")]
+    partial class Initialv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,7 +51,7 @@ namespace LNCLibrary.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<int>("ConfirmationNumber");
+                    b.Property<string>("ConfirmationNumber");
 
                     b.Property<DateTime>("DateOfPurchase");
 
