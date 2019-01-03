@@ -325,6 +325,56 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     </div>
     <!--banner-->
+    <!--new-arrivals-->
+    <div class="new-arrivals-w3agile">
+        <div class="container">
+            <h2 class="tittle">New Arrivals</h2>
+            <div class="arrivals-grids">
+                @foreach (var item in Model.ShopProducts)
+                {
+                    <div class="col-md-3 arrival-grid simpleCart_shelfItem" style="padding-bottom:2em;">
+                        <div class="grid-arr">
+                            <div class="grid-arrival">
+                                <figure>
+                                    <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                        <div class="grid-img">
+                                            <img src="~/ProductPictures/@item.ProfilePicture" class="img-responsive" alt="">
+                                        </div>
+                                        <div class="grid-img">
+                                            <img src="~/ProductPictures/@item.ProfilePicture" class="img-responsive" alt="">
+                                        </div>
+                                    </a>
+                                </figure>
+                            </div>
+                            @*<div class="ribben">
+                                    <p>NEW</p>
+                                </div>
+                                <div class="ribben1">
+                                    <p>SALE</p>
+                                </div>*@
+                            <div class="block">
+                                <div class="starbox small ghosting"> </div>
+                            </div>
+                            <div class="women">
+                                <h6><a href="single.html">@item.ProductName</a></h6>
+                                <span class="size">XL / XXL / S </span>
+                                <p>@*<del>$100.00</del>*@<em class="item_price">$@item.Price</em></p>
+                                <input class="flatbutton" id="addToCart" type="button" style="padding-bottom:1em;"
+                                       cartid="@Model.ShopID" price="@item.Price"
+                                       productid="@item.ID" productname="@item.ProductName"
+                                       profilepicture="@item.ProfilePicture"
+                                       value="Add To Cart"/>
+                                <input type="hidden" id="ItemPrice" 
+                                       value="@item.Price" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!--new-arrivals-->
     <!--content-->
     <div class="content">
         <!--banner-bottom-->
@@ -372,59 +422,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-    <!--banner-bottom-->
-    <!--new-arrivals-->
-    <div class="new-arrivals-w3agile">
-        <div class="container">
-            <h2 class="tittle">New Arrivals</h2>
-            <div class="arrivals-grids">
-                @foreach (var item in Model.ShopProducts)
-                {
-
-                    <div class="col-md-3 arrival-grid simpleCart_shelfItem" style="padding-bottom:2em;">
-                        <div class="grid-arr">
-                            <div class="grid-arrival">
-                                <figure>
-                                    <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
-                                        <div class="grid-img">
-                                            <img src="~/ProductPictures/@item.ProfilePicture" class="img-responsive" alt="">
-                                        </div>
-                                        <div class="grid-img">
-                                            <img src="~/ProductPictures/@item.ProfilePicture" class="img-responsive" alt="">
-                                        </div>
-                                    </a>
-                                </figure>
-                            </div>
-                            @*<div class="ribben">
-                                    <p>NEW</p>
-                                </div>
-                                <div class="ribben1">
-                                    <p>SALE</p>
-                                </div>*@
-                            <div class="block">
-                                <div class="starbox small ghosting"> </div>
-                            </div>
-                            <div class="women">
-                                <h6><a href="single.html">@item.ProductName</a></h6>
-                                <span class="size">XL / XXL / S </span>
-                                <p>@*<del>$100.00</del>*@<em class="item_price">$@item.Price</em></p>
-                                <input class="flatbutton" id="addToCart" type="button" style="padding-bottom:1em;"
-                                       cartid="@Model.ShopID" price="@item.Price"
-                                       productid="@item.ID" productname="@item.ProductName"
-                                       profilepicture="@item.ProfilePicture"
-                                       value="Add To Cart"/>
-                                <input type="hidden" id="ItemPrice" 
-                                       value="@item.Price" />
-                            </div>
-                        </div>
-                    </div>
-
-                }
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <!--new-arrivals-->
+    <!--banner-bottom-->    
     @*</div>*@
     <!--content-->
     <!-- cart -->
