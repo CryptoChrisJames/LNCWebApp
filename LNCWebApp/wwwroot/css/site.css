@@ -59,15 +59,6 @@
 .modal {
     /*display: none;*/ /* Hidden by default */
     z-index: 1; /* Sit on top */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     -webkit-animation-name: fadeIn; /* Fade in the background */
@@ -79,13 +70,27 @@
 /* Modal Content */
 .modal-content {
     position: fixed;
+    width: 65%; /* Full width */
+    height: 65%; /* Full height */
+    overflow: scroll;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
     bottom: 0;
+    right: 0;
     background-color: #fefefe;
     /*width: 60%;*/
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
     animation-name: slideIn;
     animation-duration: 0.4s
+}
+
+.empty {
+    margin: auto;
+    position: absolute;
+    padding-left:150px;
 }
 
 /* The Close Button */
@@ -110,15 +115,7 @@
 }
 
 .modal-body {
-    /*padding: 2px 16px;*/
-    display: flex;
-    flex-direction:row;
-    /*grid-template-columns: fit-content(300px) fit-content(300px) 1fr;*/
-    grid-gap: 5px;
-    box-sizing: border-box;
-    overflow-x:hidden;
     overflow-y:scroll;
-    height: 225px;
 }
 
 .modal-footer {
