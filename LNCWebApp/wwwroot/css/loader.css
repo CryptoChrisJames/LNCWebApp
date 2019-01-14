@@ -1,0 +1,61 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background: 0 0;
+    height: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+}
+
+.loader {
+    position:fixed;
+    display: inline-block;
+    border-radius: 500px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 6.5%;
+    background: linear-gradient(58deg, #FFF937, #9DF31F, #FF9191, #77A6C7);
+    background-size: 800% 800%;
+    animation:FadeIn 1s ease forwards, loading 0.8s infinite ease alternate;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.loadwrapper{
+    
+}
+
+.loader p {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size:180%;
+}
+
+@keyframes loading
+{
+    0% {
+        background-position: 100% 0%;
+    }
+
+    100% {
+        background-position: 15% 100%;
+    }
+}
+
+@keyframes FadeIn
+{
+    0%
+    {
+        opacity:0;
+    }
+    100%
+    {
+        opacity:1;
+    }
+}

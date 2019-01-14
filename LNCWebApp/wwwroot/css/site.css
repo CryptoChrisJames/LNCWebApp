@@ -1,8 +1,125 @@
-﻿html,body{
-    margin:0;
-    padding:0;
-    background:0 0;
-    height:100%;
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background: 0 0;
+    height: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+}
+.space {
+    width:100%;
+    height:40px;
+    text-align:center;
+}
+
+.price {
+    font-family: 'Quicksand', sans-serif;
+    font-weight:bold;
+}
+
+.items {
+    display: block;
+    min-width: 90%;
+    height: auto;
+    margin:0 5% 0 5%;
+    padding: 3%;
+    align-content:center;
+    justify-content:center;
+
+}
+
+.addButton {
+    display: inline-block;
+    text-align:center;
+    align-content:center;
+    justify-content:center;
+    padding: 0.35em 1.2em;
+    border: 20px;
+    border-radius: 500px;
+    border-color:black;
+    text-decoration: none;
+    font-family: 'Quicksand',sans-serif;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    transition: all 0.2s;
+    background: linear-gradient(58deg, #FFF937, #9DF31F, #FF9191, #77A6C7);
+    background-size: 800% 800%;
+    -webkit-animation: ColorCycle 11s ease infinite;
+    -moz-animation: ColorCycle 11s ease infinite;
+    -o-animation: ColorCycle 11s ease infinite;
+    animation: ColorCycle 11s ease infinite;
+}
+
+.itemcontainer{
+    padding:3%;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.LNCitem{
+    max-width:100%;
+    height:auto;
+}
+
+.header {
+    height: 50px;
+    display: flex;
+    background: linear-gradient(58deg, #FFF937, #9DF31F, #FF9191, #77A6C7);
+    background-size: 800% 800%;
+    -webkit-animation: ColorCycle 25s ease infinite;
+    -moz-animation: ColorCycle 25s ease infinite;
+    -o-animation: ColorCycle 25s ease infinite;
+    animation: ColorCycle 25s ease infinite;
+}
+
+.subheader {
+    position: relative;
+    flex: 20%;
+}
+
+.headerButton {
+    position: absolute;
+    display: inline-block;
+    min-height: 80%;
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 500px;
+    text-align: center;
+    border: none;
+    background-color: #000000;
+    color: white;
+    opacity: 0.38;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+}
+
+
+
+@media only screen and (min-width:474px) {
+    .headerButton {
+        font-size: 15px;
+    }
+
+    .items {
+        display: flex;
+        flex-wrap:wrap;
+    }
+
+    .itemcontainer {
+        flex:50%;
+    }
+
+
+}
+
+@media only screen and (min-width:1024px) {
+    .itemcontainer {
+        flex: 25%;
+    }
 }
 
 .LNCContainer {
@@ -12,36 +129,7 @@
 
 .logo{
     width:100%;
-    padding-right:2%;
-    padding:60% 0;
-    display:block;
-    margin:0;
-    position:absolute;
-    left:0;
-    top:0;
-
-}
-
-.parallaxBackground {
-    min-height: 100%;
-    min-width: 100%;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: inline-block;
-    background: linear-gradient(271deg, #e7ff26, #2ecc00, #ff3b00, #2a9fff);
-    background-size: 800% 800%;
-    -webkit-animation: AnimationName 10s ease infinite;
-    -moz-animation: AnimationName 10s ease infinite;
-    -o-animation: AnimationName 10s ease infinite;
-    animation: AnimationName 10s ease infinite;
-}
-
-.colorcycle {
-    min-height: 100%;
-    min-width: 100%;
-    
+    height:auto;
 }
 
 .LVNColorCart {
@@ -254,6 +342,7 @@
     position:fixed center absolute;
 
 }
+
 .checkoutbutton {
     display: inline-block;
     -webkit-box-sizing: content-box;
@@ -337,18 +426,48 @@
     font-weight: bold;
 }
 
-    .GCclose:hover,
-    .GCclose:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+.GCclose:hover,
+.GCclose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.LNCFooter {
+    width: 100%;
+    height: 250px;
+    bottom:0;
+    margin-top: 1%;
+    padding: 4%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(58deg, #FFF937, #9DF31F, #FF9191, #77A6C7);
+    background-size: 800% 800%;
+    -webkit-animation: ColorCycle 11s ease infinite;
+    -moz-animation: ColorCycle 11s ease infinite;
+    -o-animation: ColorCycle 11s ease infinite;
+    animation: ColorCycle 11s ease infinite;
+}
+
+.SMIcons{
+    display:flex;
+    margin:0 15% 0 15%;
+    padding-bottom:2%;
+}
+
+.SMIcon {
+    flex: 25%;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding:0 2px 0 2px;
+}
 
     /*Animations*/
-
-
-
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes ColorCycle {
     0% {
         background-position: 92% 0%
     }
@@ -362,7 +481,7 @@
     }
 }
 
-@-moz-keyframes AnimationName {
+@-moz-keyframes ColorCycle {
     0% {
         background-position: 92% 0%
     }
@@ -376,7 +495,7 @@
     }
 }
 
-@-o-keyframes AnimationName {
+@-o-keyframes ColorCycle {
     0% {
         background-position: 92% 0%
     }
@@ -390,7 +509,7 @@
     }
 }
 
-@keyframes AnimationName {
+@keyframes ColorCycle {
     0% {
         background-position: 92% 0%
     }
