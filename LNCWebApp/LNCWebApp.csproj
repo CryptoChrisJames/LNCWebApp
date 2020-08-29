@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <UserSecretsId>aspnet-LNCWebApp-9EC3C012-FBBF-4217-AFE6-3B95F1DEBA59</UserSecretsId>
     <RuntimeIdentifiers>win7-x64;osx.10.11-x64;ubuntu.16.04-x64;win10-x64</RuntimeIdentifiers>
   </PropertyGroup>
