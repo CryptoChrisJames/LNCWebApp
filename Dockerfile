@@ -12,10 +12,10 @@ COPY ["LNCLibrary/LNCLibrary.csproj", "LNCLibrary/"]
 RUN dotnet restore "LNCWebApp/LNCWebApp.csproj"
 COPY . .
 WORKDIR "/src/LNCWebApp"
-RUN dotnet build "LNCWebApp/LNCWebApp.csproj" -c Release -o /app/build
+RUN dotnet build "LNCWebApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LNCWebApp/LNCWebApp.csproj" -c Release -o /app/publish
+RUN dotnet publish "LNCWebApp.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
