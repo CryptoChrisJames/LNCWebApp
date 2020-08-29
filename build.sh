@@ -1,5 +1,5 @@
 # Initializing Variables
-_imagetag=LNC-demo
+_imagetag=lnc-demo
 echo $_imagetag
 
 #Stop container
