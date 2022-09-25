@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LNCWebApp.Models.AccountViewModels
+namespace LNCLibrary.Models.AccountViewModels
 {
     public class RegisterViewModel
     {

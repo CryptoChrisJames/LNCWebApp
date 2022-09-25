@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using LNCWebApp.Data;
-using LNCWebApp.Models;
+using LNCLibrary2.Data;
+using LNCLibrary2.Models;
 using LNCWebApp.Services;
 using Microsoft.Extensions.Caching;
-using LNCLibrary.Models;
+using LNCLibrary2.Models;
 using Microsoft.AspNetCore.Http;
 using Stripe;
-using LNCLibrary.Configurations.StripeConfig;
+using LNCLibrary2.Configurations.StripeConfig;
 using Microsoft.AspNetCore.Identity;
 
 namespace LNCWebApp

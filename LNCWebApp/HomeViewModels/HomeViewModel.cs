@@ -1,9 +1,9 @@
-﻿using LNCWebApp.Models;
+﻿using LNCLibrary2.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LNCLibrary.Models.HomeViewModel
+namespace LNCLibrary2.Models.HomeViewModel
 {
     public class HomeViewModel
     {

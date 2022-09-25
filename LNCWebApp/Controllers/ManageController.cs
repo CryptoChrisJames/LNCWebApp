@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using LNCWebApp.Models;
-using LNCWebApp.Models.ManageViewModels;
+using LNCLibrary2.Models;
+using LNCLibrary2.Models.ManageViewModels;
 using LNCWebApp.Services;
-using LNCWebApp.Data;
-using LNCLibrary.Logic;
-using LNCLibrary.Models;
+using LNCLibrary2.Data;
+using LNCLibrary2.Logic;
 
 namespace LNCWebApp.Controllers
 {

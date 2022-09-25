@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using LNCWebApp.Data;
-using LNCWebApp.Models;
+using LNCLibrary2.Data;
+using LNCLibrary2.Models;
 using Microsoft.EntityFrameworkCore;
-using LNCLibrary.Models.HomeViewModel;
+using LNCLibrary2.Models.HomeViewModel;
 using Microsoft.AspNetCore.Identity;
-using LNCLibrary.Models;
+using LNCLibrary2.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace LNCWebApp.Controllers

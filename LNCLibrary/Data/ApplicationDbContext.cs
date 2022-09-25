@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using LNCWebApp.Models;
 using LNCLibrary.Models;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using System.IO;
+using Microsoft.EntityFrameworkCore.Design;
 
-namespace LNCWebApp.Data
+namespace LNCLibrary.Data
 {
-
-    public class ApplicationDbContextFactory : IDbContextFactory<ApplicationDbContext>
-    {
-        public ApplicationDbContext Create(DbContextFactoryOptions options)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            return new ApplicationDbContext(optionsBuilder.Options);
-        }
-    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext() { }
+        public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+        {
+            public ApplicationDbContext CreateDbContext(string[] args)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=LNCDemo;Trusted_Connection=True;");
+                return new ApplicationDbContext(optionsBuilder.Options);
+            }
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -31,28 +25,19 @@ namespace LNCWebApp.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //IConfigurationRoot configuration = new ConfigurationBuilder()
-                //   .SetBasePath(Directory.GetCurrentDirectory())
-                //   .AddJsonFile("appsettings.json")
-                //   .Build();
-                //var connectionString = configuration.GetConnectionString("DefaultConnection");
-                var connectionString = "Data Source=obsidiandb.crjvbstix97q.us-east-2.rds.amazonaws.com,1433;Initial Catalog=LNCTest;" +
-                    "User ID=obsidiantech;Password=Obsidian12!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
-                    "ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-                //var connectionString = "Data Source=CHRISTOPHER09E8;Initial Catalog=LNCTest;Integrated Security=True;" +
-                //    "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                var connectionString = "Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;";
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
-        //    // Customize the ASP.NET Identity model and override the defaults if needed.
-        //    // For example, you can rename the ASP.NET Identity table names and more.
-        //    // Add your customizations after calling base.OnModelCreating(builder);
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
+        }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LNCLibrary.Models;
-using LNCWebApp.Data;
-using LNCLibrary.Logic;
+using LNCLibrary2.Models;
+using LNCLibrary2.Data;
+using LNCLibrary2.Logic;
 using Microsoft.AspNetCore.Authorization;
 
 namespace LNCWebApp.Controllers

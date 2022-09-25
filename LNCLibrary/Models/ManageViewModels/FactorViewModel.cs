@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LNCWebApp.Models.ManageViewModels
+namespace LNCLibrary.Models.ManageViewModels
 {
     public class FactorViewModel
     {

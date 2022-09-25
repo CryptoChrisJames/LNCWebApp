@@ -1,0 +1,87 @@
+@using Microsoft.Extensions.Options
+@using LNCLibrary.Configurations.StripeConfig
+@inject IOptions<StripeSettings> Stripe
+@model LNCDemo.HomeViewModels.GuestCheckoutViewModel
+
+
+<form asp-action="GuestOrderCreation">
+    <div class="form-horizontal">
+        <h4>Order</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.LastName" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.Address" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.Address" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.City" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.City" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.State" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="@Model.GuestOrder.State" asp-items="@Html.GetEnumSelectList<LNCLibrary.Models.USStates>()" class="form-control"></select>
+                <span asp-validation-for="@Model.GuestOrder.State" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.Email" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.Email" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.CheckoutComments" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.CheckoutComments" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.CheckoutComments" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.GuestOrder.ZipCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.GuestOrder.ZipCode" class="form-control" />
+                <span asp-validation-for="@Model.GuestOrder.ZipCode" class="text-danger"></span>
+            </div>
+        </div>
+        @*<script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublicKey"
+                data-locale="auto"
+                data-description="Sample Charge"
+                data-amount="@Model.TotalForStripe">
+        </script>*@
+        <input type="hidden" value="@Model.CartID" name="CartID" />
+        <input type="submit" value="Proceed to Payment" class="btn-default"/>
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>*@
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

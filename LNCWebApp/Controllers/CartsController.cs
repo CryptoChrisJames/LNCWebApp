@@ -1,17 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LNCLibrary.Models;
-using LNCWebApp.Data;
-using Newtonsoft.Json;
+using LNCLibrary2.Models;
+using LNCLibrary2.Data;
 using Microsoft.AspNetCore.Identity;
-using LNCWebApp.Models;
 using LNCWebApp.HomeViewModels;
-using LNCLibrary.Logic;
+using LNCLibrary2.Logic;
 
 namespace LNCWebApp.Controllers
 {

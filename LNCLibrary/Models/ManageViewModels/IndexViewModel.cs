@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace LNCWebApp.Models.ManageViewModels
+namespace LNCLibrary.Models.ManageViewModels
 {
     public class IndexViewModel
     {

@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LNCLibrary.Models;
-using LNCWebApp.Data;
+using LNCLibrary2.Models;
+using LNCLibrary2.Data;
 using LNCWebApp.HomeViewModels;
-using LNCWebApp.Models;
 using Microsoft.AspNetCore.Identity;
-using LNCLibrary.Logic;
+using LNCLibrary2.Logic;
 
 namespace LNCWebApp.Controllers
 {

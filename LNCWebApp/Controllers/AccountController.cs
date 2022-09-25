@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -9,12 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using LNCWebApp.Models;
-using LNCWebApp.Models.AccountViewModels;
+using LNCLibrary2.Models;
+using LNCLibrary2.Models.AccountViewModels;
 using LNCWebApp.Services;
 using LNCWebApp.HomeViewModels;
-using LNCLibrary.Models;
-using LNCWebApp.Data;
+using LNCLibrary2.Data;
 
 namespace LNCWebApp.Controllers
 {

@@ -1,0 +1,38 @@
+﻿@using LNCLibrary.Models;
+@model List<CartItems>
+
+
+<table>
+    @if (Model == null)
+    {
+
+        <div class="empty"><h4><b> Your cart is currently empty. Feel free to select an item!</b></h4></div>
+
+    }
+    else
+    {
+        <table>
+            @foreach (var item in Model)
+            {
+                @*<div class="card">
+                <div class="cardcontent">
+                    <img class="cartimg" src="~/ProductPictures/@item.itempicture" />
+                    <div style="float:left" class="container">
+                        <h4><b>$@item.price</b></h4>
+                    </div>
+                    <div class="container">
+                        <button id="RemoveItem" type="submit"
+                                class="btn btn-xs btn-danger"
+                                value="@item.ID" cartid="@item.cartID">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp;
+                        </button>
+                    </div>
+                </div>
+            </div>*@
+                <tr style="border: 5px solid lightgrey;">
+                    <td><img src="~/ProductPictures/@item.itempicture" /></td>
+                </tr>
+            }
+        </table>
+    }
+</div>

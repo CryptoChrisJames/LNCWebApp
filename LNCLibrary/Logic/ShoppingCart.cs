@@ -1,6 +1,6 @@
 ﻿using LNCLibrary.Logic;
 using LNCLibrary.Models;
-using LNCWebApp.Data;
+using LNCLibrary.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
