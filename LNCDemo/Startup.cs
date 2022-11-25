@@ -29,7 +29,7 @@ namespace LNCDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var currentConnString = currentEnv == "Development" ? "DefaultConnection" : "Server=localhost,1433;Initial Catalog=LNCDemo;Integrated Security=True;User Id=sa;Password=DEMOS123;";
+            var currentConnString = currentEnv == "Development" ? "DefaultConnection" : "Server=sql;Database=LNCDemo;User=sa;Password=DEMOS123;";
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString(currentConnString)));
