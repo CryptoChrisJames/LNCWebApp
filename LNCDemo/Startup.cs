@@ -20,16 +20,19 @@ namespace LNCDemo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         }
 
         public IConfiguration Configuration { get; }
+        public string currentEnv { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var currentConnString = currentEnv == "Development" ? "DefaultConnection" : "Server=localhost,1433;Initial Catalog=LNCDemo;Integrated Security=True;User Id=sa;Password=DEMOS123;";
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString(currentConnString)));
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -49,6 +52,14 @@ namespace LNCDemo
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp)
         {
+            if(currentEnv != "Development")
+            {
+                using (IServiceScope scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+                }
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
