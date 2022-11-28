@@ -7,17 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["LNCWebApp/LNCWebApp.csproj", "LNCWebApp/"]
+COPY ["LNCDemo/LNCDemo.csproj", "LNCDemo/"]
 COPY ["LNCLibrary/LNCLibrary.csproj", "LNCLibrary/"]
-RUN dotnet restore "LNCWebApp/LNCWebApp.csproj"
+RUN dotnet restore "LNCDemo/LNCDemo.csproj"
 COPY . .
-WORKDIR "/src/LNCWebApp"
-RUN dotnet build "LNCWebApp.csproj" -c Release -o /app/build
+WORKDIR "/src/LNCDemo"
+RUN dotnet build "LNCDemo.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LNCWebApp.csproj" -c Release -o /app/publish
+RUN dotnet publish "LNCDemo.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LNCWebApp.dll"]
+ENTRYPOINT ["dotnet", "LNCDemo.dll"]
