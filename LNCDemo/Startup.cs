@@ -17,22 +17,24 @@ namespace LNCDemo
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
-        public string currentEnv { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var currentConnString = currentEnv == "Development" ? "DefaultConnection" : "Server=localhost,1433;Initial Catalog=LNCDemo;Integrated Security=True;User Id=sa;Password=DEMOS123;";
+            // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString(currentConnString)));
+                options.UseSqlServer(Env.IsDevelopment() ?
+                    Configuration.GetConnectionString("DefaultConnection") :
+                    "Server=sql;Database=LNCDemo;User=sa;Password=Demos123!;"));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -52,7 +54,7 @@ namespace LNCDemo
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp)
         {
-            if(currentEnv != "Development")
+            if (!Env.IsDevelopment())
             {
                 using (IServiceScope scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
@@ -72,7 +74,6 @@ namespace LNCDemo
                 app.UseHsts();
             }
             app.UseSession();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
